@@ -31,6 +31,7 @@ export default function Question({
     onPress = () => {router.push('/')}
 }) {
     const [modalVisible, setModalVisible] = useState(false);
+    const [answer, setAnswer] = useState('');
     const contents = ['Questão 1', 'Questão 2', 'Questão 3', 'Questão 4' ,'Questão 5']
     const data = [
         {
@@ -48,7 +49,7 @@ export default function Question({
           progress: 0
         },
         {
-          title: 'Termoquímica',
+          title: 'Química Inorgânica',
           content: contents,
           contentNested: [],
           type: 'regular',
@@ -87,25 +88,34 @@ export default function Question({
                     </Text>
                     <View>
                         {alternatives.map(data=>(
-                            <TouchableOpacity key={data.id} style={[styles.card, {flexDirection: 'row', alignItems: 'center'}]}>
-                            <View style={{paddingHorizontal:10, borderRightWidth: 1, borderColor: '#E5E7EB'}}>
-                                <Text style={{fontSize: 32, fontWeight: 600, color: '#B5B5B5'}}>{data.id}</Text>
-                            </View>
-                            
-                            <Text style={{flex: 1, textAlign: 'justify', paddingHorizontal: 10, color: '#656B71'}}>
-                                {data.text}
-                            </Text>
+                            <TouchableOpacity key={data.id} style={[styles.card, {flexDirection: 'row', alignItems: 'center'}, answer === data.id && {borderColor: '#1C5BFF', backgroundColor: '#EFF5FF'}]}
+                            onPress={()=> data.id !== answer ? setAnswer(data.id) : setAnswer('')}
+                            >
+                                <View style={[{paddingHorizontal:10, borderRightWidth: 1, borderColor: '#E5E7EB'}, answer === data.id && {borderColor: '#1C5BFF'}]}>
+                                    <Text style={[{fontSize: 32, fontWeight: 600, color: '#B5B5B5'}, answer === data.id && {color: '#1C5BFF'}]}>{data.id}</Text>
+                                </View>
+                                
+                                <Text style={{flex: 1, textAlign: 'justify', paddingHorizontal: 10, color: '#656B71'}}>
+                                    {data.text}
+                                </Text>
                             </TouchableOpacity>
                         ))}
                         
                     </View>
                 </View>
+
+                <TouchableOpacity style={[styles.card, {paddingVertical:10, marginHorizontal: 50}]}>
+                    <Text style={{textAlign: 'center'}}>Continuar</Text>
+                </TouchableOpacity>
+
+                
             </View>
             <Modal
             animationType='fade'
             transparent={true}
             visible={modalVisible}
             // statusBarTranslucent={true}
+            onRequestClose={()=> setModalVisible(!modalVisible)}
             >
                 <View style={{height: '100%', flexDirection: 'row'}}>
                     <Pressable style={{height: '100%',flex:1, backgroundColor: 'rgba(0,0,0,0.1)'}}
