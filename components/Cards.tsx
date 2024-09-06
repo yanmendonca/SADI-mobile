@@ -56,6 +56,7 @@ export function CardProgress({
         color={color}
         unfilledColor={'#BBBBBB'}
         borderWidth={0}
+        animated={false}
       />
     </View>
   );
@@ -147,6 +148,7 @@ export function CardProgressHorizontal({
       justifyContent: 'center'
     }
   });
+  console.log(value)
   return (
     <TouchableOpacity style={[style, {marginBottom: 5}]} onPress={()=> router.push(route)}>
       <View style={styles.card}>
@@ -160,6 +162,7 @@ export function CardProgressHorizontal({
           color={color}
           unfilledColor={'#BBBBBB'}
           borderWidth={0}
+          animated={false}
         />
         <View style={styles.titleField}>
           <Text style={styles.title}>{title}</Text>
