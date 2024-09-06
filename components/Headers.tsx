@@ -20,7 +20,7 @@ export function MainHeader({
             {/* Status Bar (if doesn't work, comment, save, discomment and save again, then it will work ) */}
             <StatusBar style="light" backgroundColor="black" translucent={true} />
 
-            {/* Header Menu (probably will be removed from here) */}
+            {/* Header Menu */}
             <View>
                 <View style={styles.header}>
                     <Avatar

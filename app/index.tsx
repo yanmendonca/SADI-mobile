@@ -14,41 +14,41 @@ export default function Index() {
 
   const softSkills = [
     {
-      id: 0,
+      key: 0,
       name: 'Relacionamento'
     },
     {
-      id: 0,
+      key: 0,
       name: 'Foco'
     },
     {
-      id: 0,
+      key: 0,
       name: 'Autoconfiança'
     },
     {
-      id: 0,
+      key: 0,
       name: 'Adaptabilidade'
     }
   ]
 
   const Simulados = [
     {
-      id: 0,
+      key: 0,
       subject: 'Ciências da Natureza e suas Tecnologias',
       value: 0.67
     },
     {
-      id: 1,
+      key: 1,
       subject: 'Matemática e suas Tecnologias',
       value: 0.40
     },
     {
-      id: 2,
+      key: 2,
       subject: 'Ciências Humanas e suas Tecnologias',
       value: 0.25
     },
     {
-      id: 3,
+      key: 3,
       subject: 'Linguagens e suas Tecnologias',
       value: 0.6
     },
@@ -73,7 +73,7 @@ export default function Index() {
               style={{ width: windowWidth }}
               data={[...softSkills]}
               renderItem={({ index }) => (
-                <CardImage title={softSkills[index].name} />
+                <CardImage key={softSkills[index].key} title={softSkills[index].name} />
               )}
             />
           </View>
@@ -83,7 +83,7 @@ export default function Index() {
           <Text style={{ fontSize: 20, fontWeight: 900 }}>Simulados Preparatórios</Text>
           <View style={{ marginTop: 10 }}>
             {Simulados.map(data => (
-              <CardProgressHorizontal title={data.subject} value={data.value} color='#94ED6B' style={{ marginBottom: 5 }} />
+              <CardProgressHorizontal key={data.key} title={data.subject} value={data.value} color='#94ED6B'/>
             ))}
           </View>
         </View>

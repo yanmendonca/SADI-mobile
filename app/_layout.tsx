@@ -22,7 +22,7 @@ export default function Layout() {
     <DrawerContentScrollView {...props} style={{paddingTop: 12}}>
       <DrawerItem label={"home"}
       onPress={()=>{
-        router.push('/home/')
+        router.push('/')
       }}
       icon={({color,size})=>(
         <Ionicons name={'home-outline'} size={14}/>
@@ -101,7 +101,6 @@ export default function Layout() {
       {/* Drawer router */}
       <GestureHandlerRootView>
         <Drawer
-        initialRouteName="/home/"
           screenOptions={{
             headerShown: false,
           }}
