@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, View, Text } from "react-native"
+import { Pressable, StyleSheet, View, Text, ScrollView, ScrollViewProps } from "react-native"
 import { Slot, useNavigation, router, usePathname } from "expo-router"
 import { DrawerActions, NavigationContainer } from "@react-navigation/native"
 import { StatusBar } from "expo-status-bar"
@@ -8,17 +8,18 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Avatar, NativeBaseProvider, Button } from "native-base"
 import Constants from 'expo-constants'
 import { DrawerContentScrollView, DrawerItem, DrawerItemList } from "@react-navigation/drawer"
+import { JSX, ReactNode, RefAttributes } from "react"
 
 export default function Layout() {
   const navigation = useNavigation()
   const toggleMenu = () => navigation.dispatch(DrawerActions.toggleDrawer())
   
   // DrawerContent customized
-  const CustomDrawerContent = (props) => {
+  const CustomDrawerContent = (props: JSX.IntrinsicAttributes & ScrollViewProps & { children: ReactNode } & RefAttributes<ScrollView>) => {
     const pathname = usePathname()
 
     return(
-    <DrawerContentScrollView {...props}>
+    <DrawerContentScrollView {...props} style={{paddingTop: 12}}>
       <DrawerItem label={"home"}
       onPress={()=>{
         router.push('/home/')
@@ -97,30 +98,6 @@ export default function Layout() {
 
   return (
     <NativeBaseProvider>
-      {/* Status Bar (if doesn't work, comment, save, discomment and save again, then it will work ) */}
-      <StatusBar style="light" backgroundColor="black" translucent={true}/>
-
-      {/* Header Menu (probably will be removed from here) */}
-      <View>
-        <View style={styles.header}>
-            <Avatar 
-            style={{top: 5}}
-            bg="green.500" source={{
-              uri: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-            }}>
-              A
-            </Avatar>
-
-        </View>
-
-        <View style={styles.menuBar}>
-          <Text>SADI   -   Aprender</Text>
-          <Pressable onPress={toggleMenu} style={styles.menu}>
-            <Entypo name="menu" color="#000" size={32} />
-          </Pressable>
-        </View>
-      </View>
-      
       {/* Drawer router */}
       <GestureHandlerRootView>
         <Drawer
@@ -128,7 +105,7 @@ export default function Layout() {
           screenOptions={{
             headerShown: false,
           }}
-          drawerContent={(props) => <CustomDrawerContent {...props} />}
+          drawerContent={(props) => <CustomDrawerContent children={undefined} {...props} />}
         />
       </GestureHandlerRootView>
     </NativeBaseProvider>
