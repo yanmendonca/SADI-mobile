@@ -1,14 +1,16 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { MainHeader } from '@/components/Headers'
+import Question from '@/screens/question'
 
 export default function Modal() {
   return (
-    <View style={styles.body}>
-      <MainHeader route='Aprender'/>
-      <View style={styles.container}>
-        <Text>Aprender</Text>
-      </View>
-    </View>
+    // <View style={styles.body}>
+    //   <MainHeader route='Aprender'/>
+    //   <View style={styles.container}>
+    //     <Text>Aprender</Text>
+    //   </View>
+    // </View>
+    <Question/>
   );
 }
 

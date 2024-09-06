@@ -1,14 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { Link } from 'expo-router';
+import Question from '@/screens/question'
 
 export default function Modal() {
   return (
-    <View style={styles.container}>
-      <Text>Teste</Text>
-      <Link replace href={'/home/'} style={{backgroundColor: 'red', width: 100, height: 50}}>
-      Ir para Home
-      </Link>
-    </View>
+    <Question/>
   );
 }
 

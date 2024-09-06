@@ -49,7 +49,7 @@ export default function Layout() {
 
       <DrawerItem label={"Aprender"}
       onPress={()=>{
-        router.push('/learn')
+        router.push('/home/')
       }}
       icon={({color,size})=>(
         <Ionicons name={'book-outline'} size={14}/>
@@ -103,6 +103,7 @@ export default function Layout() {
         <Drawer
           screenOptions={{
             headerShown: false,
+            swipeEnabled: false
           }}
           drawerContent={(props) => <CustomDrawerContent children={undefined} {...props} />}
         />
