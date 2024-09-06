@@ -148,7 +148,6 @@ export function CardProgressHorizontal({
       justifyContent: 'center'
     }
   });
-  console.log(value)
   return (
     <TouchableOpacity style={[style, {marginBottom: 5}]} onPress={()=> router.push(route)}>
       <View style={styles.card}>
