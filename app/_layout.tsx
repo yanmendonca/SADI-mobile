@@ -92,6 +92,15 @@ export default function Layout() {
       )}
       />
 
+      <DrawerItem label={"telatres"}
+        onPress={()=>{
+          router.push('/telatres')
+        }}
+        icon={({color,size})=>(
+          <Ionicons name={'book-outline'} size={14}/>
+        )}
+      />
+
 
     </DrawerContentScrollView>
   )}

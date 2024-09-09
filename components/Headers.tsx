@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, View, Text } from "react-native"
+import { Pressable, StyleSheet, View, Text, SafeAreaView, TouchableOpacity } from "react-native"
 import { Slot, useNavigation, router, usePathname } from "expo-router"
 import { DrawerActions, NavigationContainer } from "@react-navigation/native"
 import { StatusBar } from "expo-status-bar"
@@ -17,10 +17,8 @@ export function MainHeader({
 
     return (
         <View>
-            {/* Status Bar (if doesn't work, comment, save, discomment and save again, then it will work ) */}
             <StatusBar style="light" backgroundColor="black" translucent={true} />
 
-            {/* Header Menu (probably will be removed from here) */}
             <View>
                 <View style={styles.header}>
                     <Avatar
@@ -46,6 +44,32 @@ export function MainHeader({
         </View>
     )
 }
+
+export const SubjectHeader = ({ redirectTo }: { redirectTo?: string }) => {
+    const navigation = useNavigation();
+  
+    const handleBackPress = () => {
+      if (redirectTo) {
+        navigation.navigate(redirectTo as never); // Adicionando 'as never' para forçar o tipo correto
+      } else {
+        navigation.goBack();
+      }
+    };
+  
+    return (
+      <SafeAreaView style={styles.safeArea}>
+        <TouchableOpacity style={styles.Subjheader} onPress={handleBackPress}>
+          <View style={styles.backButton}>
+            <Ionicons name="chevron-back-outline" size={24} color="black" style={styles.backIcon} />
+          </View>
+          <Text style={styles.headerTitle} numberOfLines={1}>
+            Química
+          </Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    );
+  };
+  
 
 const styles = StyleSheet.create({
     body: {
@@ -78,5 +102,35 @@ const styles = StyleSheet.create({
         marginTop: Constants.statusBarHeight,
         alignItems: 'flex-end',
         paddingRight: 16
+    },
+    safeArea: {
+        backgroundColor: '#F9FAFB',
+        paddingTop: Constants.statusBarHeight,
+      },
+    Subjheader: {
+        height: 70,
+        backgroundColor: '#F9FAFB',
+        alignItems: 'center',
+        flexDirection: 'row',
+        paddingLeft: 16,
+    },
+    backButton: {
+        width: 40,
+        height: 40,
+        backgroundColor: '#ffffff',
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: '#e5e7eb',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 8,
+    },
+    headerTitle: {
+        fontSize: 20,
+        fontWeight: '700',
+        color: '#000000',
+    },
+    backIcon: {
+    zIndex: 4,
     },
 })
