@@ -1,7 +1,7 @@
 import { AntDesign } from "@expo/vector-icons"
 import { useNavigation } from "expo-router"
 import { Avatar, Box, IconButton, Image, Text, View } from "native-base"
-import { ImageBackground, StyleSheet } from "react-native"
+import { ImageBackground, Pressable, StyleSheet } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 
 export type SubjectItem = {
@@ -42,18 +42,20 @@ export const SubjectList: React.FC<Props> = ({ areaName, subjects }) => {
         </ImageBackground>
         {   
             subjects.map((item) =>
-                <Box style={styles.cardSubject}>
-                    <Image style={styles.cardSubjectImage} source={item.image}/>
-                    <View style={styles.cardSubjectTextContainer}>
-                        <Text style={styles.cardSubjectHeaderText}>{item.name}</Text>
-                        <Text style={styles.cardSubjectSubText}>{item.totalMinutes} min</Text>
-                    </View>
-                    <IconButton
-                        onPress={() => navigation.navigate("telatres")}
-                        style={ item.done ? styles.cardSubjectButtonChecked : styles.cardSubjectButton}
-                        _icon={{as: AntDesign, name: item.done ? "check" : "arrowright", color:"black"}}
-                    />
-                </Box>
+                <Pressable  onPress={() => navigation.navigate("telatres")}>
+                    <Box style={styles.cardSubject}>
+                        <Image style={styles.cardSubjectImage} source={item.image}/>
+                        <View style={styles.cardSubjectTextContainer}>
+                            <Text style={styles.cardSubjectHeaderText}>{item.name}</Text>
+                            <Text style={styles.cardSubjectSubText}>{item.totalMinutes} min</Text>
+                        </View>
+                        <IconButton
+                            onPress={() => navigation.navigate("telatres")}
+                            style={ item.done ? styles.cardSubjectButtonChecked : styles.cardSubjectButton}
+                            _icon={{as: AntDesign, name: item.done ? "check" : "arrowright", color:"black"}}
+                        />
+                    </Box>
+                </Pressable>
             )
     }
     </SafeAreaView>
