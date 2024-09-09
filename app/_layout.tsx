@@ -49,7 +49,7 @@ export default function Layout() {
 
       <DrawerItem label={"Aprender"}
       onPress={()=>{
-        router.push('/home/')
+        router.push('/learn/')
       }}
       icon={({color,size})=>(
         <Ionicons name={'book-outline'} size={14}/>

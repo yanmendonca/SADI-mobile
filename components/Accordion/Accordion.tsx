@@ -13,14 +13,18 @@ import Animated, {
 import Chevron from './Chevron';
 import AccordionNested from './AccordionNested';
 import * as Progress from 'react-native-progress';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 type Props = {
   value: Category;
   type: string;
   cProgress: number;
+  callBack: Function;
+  check: string[];
 };
 
-const Accordion = ({value, type, cProgress}: Props) => {
+const Accordion = ({value, type, cProgress, callBack, check}: Props) => {
   const listRef = useAnimatedRef();
   const heightValue = useSharedValue(0);
   const open = useSharedValue(false);
@@ -65,8 +69,9 @@ const Accordion = ({value, type, cProgress}: Props) => {
           {type === 'regular' &&
             value.content.map((v, i) => {
               return (
-                <TouchableOpacity key={i} style={styles.content}>
+                <TouchableOpacity key={i} style={styles.content} onPress={()=>callBack(v,i,value.title)}>
                   <Text style={styles.textContent}>{v}</Text>
+                  {check[i] !== '' && <Ionicons name="checkmark-circle" size={16} color="#94ED6B" />}
                 </TouchableOpacity>
               );
             })}
@@ -121,6 +126,8 @@ const styles = StyleSheet.create({
   content: {
     padding: 10,
     backgroundColor: '#F2F2F2',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   textContent: {
     fontSize: 14,
