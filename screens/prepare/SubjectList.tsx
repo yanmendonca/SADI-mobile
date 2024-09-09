@@ -49,6 +49,7 @@ export const SubjectList: React.FC<Props> = ({ areaName, subjects }) => {
                         <Text style={styles.cardSubjectSubText}>{item.totalMinutes} min</Text>
                     </View>
                     <IconButton
+                        onPress={() => navigation.navigate("telatres")}
                         style={ item.done ? styles.cardSubjectButtonChecked : styles.cardSubjectButton}
                         _icon={{as: AntDesign, name: item.done ? "check" : "arrowright", color:"black"}}
                     />
