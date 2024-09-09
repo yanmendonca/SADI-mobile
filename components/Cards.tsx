@@ -261,6 +261,12 @@ export const SimulatedExamCard = () => {
           status="done"
         />
         <ClassCard
+          title="Química Geral"
+          duration="100 min"
+          imageSource={require('@/assets/images/TutorialsThumb/QuimGer.jpg')}
+          status="available"
+        />
+        <ClassCard
           title="Eletroquímica"
           duration="50 min"
           imageSource={require('@/assets/images/TutorialsThumb/Eletroquim.jpg')}

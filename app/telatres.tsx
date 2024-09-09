@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { SafeAreaView, ScrollView, View, Text, Pressable, StyleSheet, TouchableOpacity, Linking, Button, Modal } from 'react-native';
-import { ClassCard, TutorialsCard, SimulatedExamCard } from '@/components/Cards';
+import { SafeAreaView, ScrollView, View, Text, Pressable, StyleSheet, TouchableOpacity, Linking, Button, Modal, Animated } from 'react-native';
+import { ClassCard, TutorialsCard } from '@/components/Cards';
 import { SubjectHeader } from '@/components/Headers';
 import { Video, ResizeMode } from 'expo-av';
 import { router } from 'expo-router';
@@ -106,6 +106,88 @@ export default function App(): React.JSX.Element {
   );
 }
 
+export const SimulatedExamCard = () => {
+  const animatedValue = useRef(new Animated.Value(1)).current;
+
+  const handlePressOut = (route: string) => {
+    Animated.spring(animatedValue, {
+      toValue: 1,
+      useNativeDriver: true,
+    }).start(() => {
+      router.push(`/${route}`);
+    });
+  };
+
+  const handlePressIn = () => {
+    Animated.spring(animatedValue, {
+      toValue: 0.95,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const animatedStyle = {
+    transform: [{ scale: animatedValue }],
+  };
+
+  return (
+    <Animated.View style={[styles.cardContainer, animatedStyle]}>
+      <View style={styles.headerContainer}>
+        <Text style={styles.sectionTitle}>Simulados</Text>
+        <Pressable onPress={() => {}}>
+          <Text style={styles.sectionLink}>Ver todos</Text>
+        </Pressable>
+      </View>
+
+      <View style={styles.classCardsWrapper}>
+        <TouchableOpacity onPressIn={handlePressIn} onPressOut={() => handlePressOut('')}>
+          <ClassCard
+            title="Química Orgânica"
+            duration="60 min"
+            imageSource={require('@/assets/images/TutorialsThumb/QuimOrg.jpg')}
+            status="done"
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity onPressIn={handlePressIn} onPressOut={() => handlePressOut('./learn/question')}>
+          <ClassCard
+            title="Química Geral"
+            duration="100 min"
+            imageSource={require('@/assets/images/TutorialsThumb/QuimGer.jpg')}
+            status="available"
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity onPressIn={handlePressIn} onPressOut={() => handlePressOut('')}>
+          <ClassCard
+            title="Eletroquímica"
+            duration="50 min"
+            imageSource={require('@/assets/images/TutorialsThumb/Eletroquim.jpg')}
+            status="available"
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity onPressIn={handlePressIn} onPressOut={() => handlePressOut('')}>
+          <ClassCard
+            title="Termoquímica"
+            duration="70 min"
+            imageSource={require('@/assets/images/TutorialsThumb/Termoquim.jpg')}
+            status="available"
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity onPressIn={handlePressIn} onPressOut={() => handlePressOut('')}>
+          <ClassCard
+            title="Estequiometria"
+            duration="100 min"
+            imageSource={require('@/assets/images/TutorialsThumb/Estequiom.jpg')}
+            status="available"
+          />
+        </TouchableOpacity>
+      </View>
+    </Animated.View>
+  );
+};
+
 const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: '#F9FAFB',
@@ -136,5 +218,19 @@ const styles = StyleSheet.create({
   video: {
     width: '90%',
     height: 200,
+  },
+  cardContainer: {
+    marginVertical: 20,
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+  },
+  classCardsWrapper: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
 });
