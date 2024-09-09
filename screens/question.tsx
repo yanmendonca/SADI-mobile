@@ -9,6 +9,7 @@ import Accordion from '@/components/Accordion/Accordion'
 import dataq from '@/app/learn/data';
 
 export default function Question({
+    simulate_matter = 'all',
     onPress = () => {router.push('/')}
 }) {
     function setQuestion(i_q,i_m){
@@ -67,7 +68,18 @@ export default function Question({
         }
     }
 
-    let data = Array.apply(null, dataq).map((y,i)=>{ 
+    let data = Array.apply(null, dataq).filter((y)=>{ 
+        if (simulate_matter == 'all'){
+            return true
+        }
+        if (y.matter == simulate_matter){
+            return true
+        }else{
+            return false
+        }
+    })
+
+    data = Array.apply(null, data).map((y,i)=>{ 
         return (
             {
                 title: y.matter,
@@ -77,6 +89,8 @@ export default function Question({
             }
         ) 
     })
+
+    
     
     const answerTemplate = ['A','B','C','D','E']
     const [modalVisible, setModalVisible] = useState(false);
@@ -84,11 +98,11 @@ export default function Question({
     const [question_index, setQuestionIndex] = useState(0);
     const [matter, setMatter] = useState(data[0].title);
 
-    const initialAnswersState = Array.apply(null, dataq).map((y,i)=>{ 
+    const initialAnswersState = Array.apply(null, data).map((y,i)=>{
         return(
             {
-                matter: y.matter,
-                answers: Array.apply(null, y.questions).map((y,i)=>(''))
+                matter: y.title,
+                answers: Array.apply(null, y.content).map((y,i)=>(''))
             }
         )
     })
