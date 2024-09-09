@@ -83,7 +83,7 @@ export default function Index() {
           <Text style={{ fontSize: 20, fontWeight: 900 }}>Simulados Preparatórios</Text>
           <View style={{ marginTop: 10 }}>
             {Simulados.map(data => (
-              <CardProgressHorizontal key={data.key} title={data.subject} value={data.value} color='#94ED6B'/>
+              <CardProgressHorizontal key={data.key} title={data.subject} value={data.value} route='/home/SubjectList' color='#94ED6B'/>
             ))}
           </View>
         </View>
