@@ -755,7 +755,6 @@ const styles = StyleSheet.create({
   },
   profileName: {
     height: 19,
-    fontFamily: 'Inter',
     fontSize: 16,
     fontWeight: '700',
     lineHeight: 19,
@@ -765,7 +764,6 @@ const styles = StyleSheet.create({
   },
   profileClass: {
     height: 15,
-    fontFamily: 'Inter',
     fontSize: 12,
     fontWeight: '500',
     lineHeight: 14.523,
@@ -775,7 +773,6 @@ const styles = StyleSheet.create({
   },
   profileAge: {
     height: 15,
-    fontFamily: 'Inter',
     fontSize: 12,
     fontWeight: '500',
     lineHeight: 14.523,
@@ -792,7 +789,6 @@ const styles = StyleSheet.create({
   },
   profileAttendanceTitle: {
     height: 24,
-    fontFamily: 'Inter',
     fontSize: 20,
     fontWeight: '600',
     color: '#000000',
@@ -813,7 +809,6 @@ const styles = StyleSheet.create({
   },
   profileAttendanceTodayText: {
     height: 20,
-    fontFamily: 'Inter',
     fontSize: 15,
     fontWeight: '400',
     color: '#5f5f5f',
@@ -839,7 +834,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profileAttendanceClassText: {
-    fontFamily: 'Inter',
     fontSize: 14,
     fontWeight: '400',
     color: '#000000',
@@ -863,7 +857,6 @@ const styles = StyleSheet.create({
   },
   profileReportTitle: {
     height: 24,
-    fontFamily: 'Inter',
     fontSize: 20,
     fontWeight: '600',
     lineHeight: 24,
@@ -891,7 +884,6 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   profileReportColumnHeader: {
-    fontFamily: 'Inter',
     fontSize: 14,
     fontWeight: '500',
     color: '#000',
@@ -899,7 +891,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   profileReportRowText: {
-    fontFamily: 'Inter',
     fontSize: 14,
     fontWeight: '400',
     color: '#000',
@@ -913,7 +904,6 @@ const styles = StyleSheet.create({
   },
   profileReportSemester: {
     height: 18,
-    fontFamily: 'Inter',
     fontSize: 15,
     fontWeight: '400',
     lineHeight: 18,
