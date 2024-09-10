@@ -22,9 +22,7 @@ export default function App(): React.JSX.Element {
 
   return (
     <SafeAreaView style={{ flex: 1, paddingTop: Constants.statusBarHeight }}>
-      <SubjectHeader redirectTo="telatres" />
-
-      <Text style={styles.sectionTitle}>Todas as aulas:</Text>
+      <SubjectHeader redirectTo="telatres" title={'Todas as aulas'} />
 
       <ScrollView style={styles.scrollview} contentContainerStyle={[styles.gridContainer]}>
         {aulas.map((aula, index) => (
@@ -42,14 +40,6 @@ export default function App(): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  sectionTitle: {
-    backgroundColor: '#F9FAFB',
-    paddingLeft: 10,
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#2d2d2d',
-    marginBottom: 10,
-  },
   scrollview: {
     backgroundColor: '#F9FAFB',
     flex: 1, 
@@ -58,11 +48,11 @@ const styles = StyleSheet.create({
   gridContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between', // Mantém o espaçamento adequado entre as colunas
+    justifyContent: 'space-between',
     padding: 3,
   },
   card: {
-    marginBottom: 10, // Espaçamento entre as linhas
+    marginBottom: 10,
     height: 130,
   },
 });

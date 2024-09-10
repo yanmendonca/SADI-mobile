@@ -1,6 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import React, { PropsWithChildren, useState } from 'react';
-import { StyleSheet, TouchableOpacity, useColorScheme, View, Text, Image, ImageBackground, ImageSourcePropType, ScrollView, Pressable, ViewStyle, DimensionValue } from 'react-native';
+import { StyleSheet, TouchableOpacity, useColorScheme, View, Text, Image, ImageBackground, ImageSourcePropType, ScrollView, Pressable, ViewStyle, DimensionValue, SafeAreaView } from 'react-native';
 import { Circle, Svg } from "react-native-svg"
 import * as Progress from 'react-native-progress';
 import { Href, router } from 'expo-router'
@@ -399,6 +399,115 @@ export const SimulatedExamCard = () => {
   );
 };
 
+export const ProfileCard = () => {
+  return (
+    <View style={styles.profileContainer}>
+      <ImageBackground
+        style={styles.profileImage}
+        source={{ uri: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80' }}
+        resizeMode="cover"
+        imageStyle={styles.circleImage}
+      />
+      <View style={styles.profileCard}>
+        <Text style={styles.profileName} numberOfLines={1}>
+          Fulana da Silva Santos
+        </Text>
+        <Text style={styles.profileClass} numberOfLines={1}>
+          1º Ano A - Ensino Médio
+        </Text>
+        <Text style={styles.profileAge} numberOfLines={1}>
+          15 anos
+        </Text>
+      </View>
+    </View>
+  );
+};
+
+export const ProfileAttendanceCard = () => {
+  return (
+    <View style={styles.profileAttendanceContainer}>
+      <Text style={styles.profileAttendanceTitle} numberOfLines={1}>
+        Presença
+      </Text>
+      <View style={styles.profileAttendanceToday}>
+        <Ionicons name="chevron-down-outline" size={10} color="#000" style={styles.profileAttendanceIcon} />
+        <Text style={styles.profileAttendanceTodayText} numberOfLines={1}>
+          Hoje
+        </Text>
+      </View>
+      <View style={styles.profileAttendanceClasses}>
+        {attendanceData.map((data, index) => (
+          <View key={index} style={styles.profileAttendanceClass}>
+            <Text style={styles.profileAttendanceClassText}>{data.class}</Text>
+            <View
+              style={[
+                styles.profileAttendanceStatus,
+                { backgroundColor: data.color },
+              ]}
+            />
+          </View>
+        ))}
+      </View>
+    </View>
+  );
+};
+
+const attendanceData = [
+  { class: '1° Aula', color: '#ffe609' },
+  { class: '2° Aula', color: '#0eff09' },
+  { class: '3° Aula', color: '#0eff09' },
+  { class: '4° Aula', color: '#0eff09' },
+  { class: '5° Aula', color: '#0eff09' },
+  { class: '6° Aula', color: '#ff0909' },
+];
+
+export const ProfileReportCard = () => {
+  return (
+    <SafeAreaView>
+      <ScrollView contentInsetAdjustmentBehavior='automatic'>
+        <View style={styles.profileReportContainer}>
+          <Text style={styles.profileReportTitle} numberOfLines={1}>
+            Boletim
+          </Text>
+          <Text style={styles.profileReportSemester} numberOfLines={1}>
+            1° Semestre 2024
+          </Text>
+          <Ionicons name="chevron-down-outline" size={10} color="#000" style={styles.profileReportArrowIcon} />
+          <View style={styles.profileReportCard}>
+            <View style={styles.profileReportRowContainer}>
+              <Text style={styles.profileReportColumnHeader}>Disciplina</Text>
+              <View style={styles.profileReportDivider} />
+              <Text style={styles.profileReportColumnHeader}>Faltas</Text>
+              <View style={styles.profileReportDivider} />
+              <Text style={styles.profileReportColumnHeader}>Nota</Text>
+            </View>
+
+            {reportData.map((item, index) => (
+              <View key={index} style={styles.profileReportRowContainer}>
+                <Text style={styles.profileReportRowText}>{item.subject}</Text>
+                <View style={styles.profileReportDivider} />
+                <Text style={styles.profileReportRowText}>{item.misses}</Text>
+                <View style={styles.profileReportDivider} />
+                <Text style={styles.profileReportRowText}>{item.grade}</Text>
+              </View>
+            ))}
+          </View>
+
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+
+const reportData = [
+  { subject: 'Matemática', misses: '02', grade: '8,8' },
+  { subject: 'Português', misses: '01', grade: '7,6' },
+  { subject: 'Ciências', misses: '05', grade: '9,5' },
+  { subject: 'Geografia', misses: '00', grade: '7,2' },
+  { subject: 'História', misses: '03', grade: '10,0' },
+  { subject: 'Inglês', misses: '08', grade: '5,5' },
+];
+
 const styles = StyleSheet.create({
   imageWrapper: {
     width: '22.86%',
@@ -610,5 +719,218 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
+  },
+  
+  profileContainer: {
+    width: 350,
+    height: 86,
+    position: 'relative',
+    marginTop: 0,
+    marginRight: 'auto',
+    marginBottom: 0,
+    marginLeft: 'auto',
+  },
+  profileImage: {
+    width: 80,
+    height: 80,
+    position: 'relative',
+    zIndex: 4,
+    marginTop: -96.439,
+    marginLeft: 135,
+  },
+  circleImage: {
+    borderRadius: 50,
+  },
+  profileCard: {
+    width: 350,
+    height: 150,
+    backgroundColor: '#ffffff',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    position: 'absolute',
+    top: -61,
+    left: '50%',
+    transform: [{ translateY: 0 }, { translateX: -175 }],
+  },
+  profileName: {
+    height: 19,
+    fontFamily: 'Inter',
+    fontSize: 16,
+    fontWeight: '700',
+    lineHeight: 19,
+    color: '#000000',
+    marginTop: 56,
+    marginLeft: 94,
+  },
+  profileClass: {
+    height: 15,
+    fontFamily: 'Inter',
+    fontSize: 12,
+    fontWeight: '500',
+    lineHeight: 14.523,
+    color: '#656b71',
+    marginTop: 8.679,
+    marginLeft: 110.5,
+  },
+  profileAge: {
+    height: 15,
+    fontFamily: 'Inter',
+    fontSize: 12,
+    fontWeight: '500',
+    lineHeight: 14.523,
+    color: '#656b71',
+    marginTop: 8.679,
+    marginLeft: 157.5,
+  },
+
+  profileAttendanceContainer: {
+    width: 335,
+    height: 177,
+    marginTop: 0,
+    marginHorizontal: 'auto',
+  },
+  profileAttendanceTitle: {
+    height: 24,
+    fontFamily: 'Inter',
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#000000',
+    marginTop: 12,
+  },
+  profileAttendanceToday: {
+    width: 334,
+    height: 18,
+    position: 'relative',
+    marginTop: 14,
+  },
+  profileAttendanceIcon: {
+    width: 12,
+    height: 7,
+    position: 'absolute',
+    marginTop: 6,
+    marginLeft: 35,
+  },
+  profileAttendanceTodayText: {
+    height: 20,
+    fontFamily: 'Inter',
+    fontSize: 15,
+    fontWeight: '400',
+    color: '#5f5f5f',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: 3,
+  },
+  profileAttendanceClasses: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  profileAttendanceClass: {
+    width: 46,
+    height: 90,
+    backgroundColor: '#ffffff',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.2)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  profileAttendanceClassText: {
+    fontFamily: 'Inter',
+    fontSize: 14,
+    fontWeight: '400',
+    color: '#000000',
+    textAlign: 'center',
+    marginTop: 24,
+  },
+  profileAttendanceStatus: {
+    width: 46,
+    height: 18,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    marginTop: 26,
+  },
+
+  profileReportContainer: {
+    width: 335,
+    height: 'auto',
+    position: 'relative',
+    marginTop: 0,
+    marginHorizontal: 'auto',
+  },
+  profileReportTitle: {
+    height: 24,
+    fontFamily: 'Inter',
+    fontSize: 20,
+    fontWeight: '600',
+    lineHeight: 24,
+    color: '#000000',
+    zIndex: 1,
+    marginBottom: 16, 
+    marginTop: 5
+  },
+  profileReportCard: {
+    width: '100%',
+    backgroundColor: '#ffffff',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.2)',
+    paddingVertical: 16,
+    paddingHorizontal: 12,
+    marginTop: 30
+  },
+  profileReportRowContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(0, 0, 0, 0.1)',
+    paddingVertical: 8,
+  },
+  profileReportColumnHeader: {
+    fontFamily: 'Inter',
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#000',
+    textAlign: 'center',
+    flex: 1,
+  },
+  profileReportRowText: {
+    fontFamily: 'Inter',
+    fontSize: 14,
+    fontWeight: '400',
+    color: '#000',
+    textAlign: 'center',
+    flex: 1, 
+  },
+  profileReportDivider: {
+    width: 1,
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+  },
+  profileReportSemester: {
+    height: 18,
+    fontFamily: 'Inter',
+    fontSize: 15,
+    fontWeight: '400',
+    lineHeight: 18,
+    color: '#5f5f5f',
+    textAlign: 'left',
+    zIndex: 8,
+    position: 'absolute',
+    top: 38,
+    left: 0,
+  },
+  profileReportArrowIcon: {
+    width: 12,
+    height: 7,
+    position: 'absolute',
+    top: 43,
+    left: 138,
+    zIndex: 10,
+    marginLeft: -10
   },
 });
