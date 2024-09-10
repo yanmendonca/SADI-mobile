@@ -9,6 +9,11 @@ import { Avatar, NativeBaseProvider, Button } from "native-base"
 import Constants from 'expo-constants'
 import { DrawerContentScrollView, DrawerItem, DrawerItemList } from "@react-navigation/drawer"
 
+interface SubjectHeaderProps {
+    redirectTo?: string;
+    title: string;
+  }
+
 export function MainHeader({
     route = 'Route'
 }) {
@@ -45,7 +50,7 @@ export function MainHeader({
     )
 }
 
-export const SubjectHeader = ({ redirectTo }: { redirectTo?: string }) => {
+export const SubjectHeader = ({ redirectTo, title }: SubjectHeaderProps) => {
     const navigation = useNavigation();
   
     const handleBackPress = () => {
@@ -55,7 +60,7 @@ export const SubjectHeader = ({ redirectTo }: { redirectTo?: string }) => {
         navigation.goBack();
       }
     };
-    
+  
     return (
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.Subjheader}>
@@ -63,12 +68,12 @@ export const SubjectHeader = ({ redirectTo }: { redirectTo?: string }) => {
             <Ionicons name="chevron-back-outline" size={24} color="black" style={styles.backIcon} />
           </TouchableOpacity>
           <Text style={styles.headerTitle} numberOfLines={1}>
-            Química
+            {title}
           </Text>
         </View>
       </SafeAreaView>
     );
-  };
+};
   
   
 

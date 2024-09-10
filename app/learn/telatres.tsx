@@ -24,7 +24,7 @@ export default function App(): React.JSX.Element {
 
   return (
     <SafeAreaView style={{ flex: 1, paddingTop: Constants.statusBarHeight }}>
-      <SubjectHeader />
+      <SubjectHeader title={'Química'} />
 
       <ScrollView contentInsetAdjustmentBehavior="automatic" style={styles.scrollView}>
         
