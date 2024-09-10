@@ -464,37 +464,35 @@ const attendanceData = [
 export const ProfileReportCard = () => {
   return (
     <SafeAreaView>
-      <ScrollView contentInsetAdjustmentBehavior='automatic'>
-        <View style={styles.profileReportContainer}>
-          <Text style={styles.profileReportTitle} numberOfLines={1}>
-            Boletim
-          </Text>
-          <Text style={styles.profileReportSemester} numberOfLines={1}>
-            1° Semestre 2024
-          </Text>
-          <Ionicons name="chevron-down-outline" size={10} color="#000" style={styles.profileReportArrowIcon} />
-          <View style={styles.profileReportCard}>
-            <View style={styles.profileReportRowContainer}>
-              <Text style={styles.profileReportColumnHeader}>Disciplina</Text>
-              <View style={styles.profileReportDivider} />
-              <Text style={styles.profileReportColumnHeader}>Faltas</Text>
-              <View style={styles.profileReportDivider} />
-              <Text style={styles.profileReportColumnHeader}>Nota</Text>
-            </View>
-
-            {reportData.map((item, index) => (
-              <View key={index} style={styles.profileReportRowContainer}>
-                <Text style={styles.profileReportRowText}>{item.subject}</Text>
-                <View style={styles.profileReportDivider} />
-                <Text style={styles.profileReportRowText}>{item.misses}</Text>
-                <View style={styles.profileReportDivider} />
-                <Text style={styles.profileReportRowText}>{item.grade}</Text>
-              </View>
-            ))}
+      <View style={styles.profileReportContainer}>
+        <Text style={styles.profileReportTitle} numberOfLines={1}>
+          Boletim
+        </Text>
+        <Text style={styles.profileReportSemester} numberOfLines={1}>
+          1° Semestre 2024
+        </Text>
+        <Ionicons name="chevron-down-outline" size={10} color="#000" style={styles.profileReportArrowIcon} />
+        <View style={styles.profileReportCard}>
+          <View style={styles.profileReportRowContainer}>
+            <Text style={styles.profileReportColumnHeader}>Disciplina</Text>
+            <View style={styles.profileReportDivider} />
+            <Text style={styles.profileReportColumnHeader}>Faltas</Text>
+            <View style={styles.profileReportDivider} />
+            <Text style={styles.profileReportColumnHeader}>Nota</Text>
           </View>
 
+          {reportData.map((item, index) => (
+            <View key={index} style={styles.profileReportRowContainer}>
+              <Text style={styles.profileReportRowText}>{item.subject}</Text>
+              <View style={styles.profileReportDivider} />
+              <Text style={styles.profileReportRowText}>{item.misses}</Text>
+              <View style={styles.profileReportDivider} />
+              <Text style={styles.profileReportRowText}>{item.grade}</Text>
+            </View>
+          ))}
         </View>
-      </ScrollView>
+
+      </View>
     </SafeAreaView>
   );
 };
@@ -849,11 +847,10 @@ const styles = StyleSheet.create({
   },
 
   profileReportContainer: {
-    width: 335,
+    width: 'auto',
     height: 'auto',
     position: 'relative',
     marginTop: 0,
-    marginHorizontal: 'auto',
   },
   profileReportTitle: {
     height: 24,

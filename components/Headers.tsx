@@ -111,7 +111,6 @@ const styles = StyleSheet.create({
     },
     safeArea: {
         backgroundColor: '#F9FAFB',
-        paddingTop: Constants.statusBarHeight,
       },
     Subjheader: {
         height: 70,
