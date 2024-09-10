@@ -24,6 +24,12 @@ export default function Layout() {
       <Stack.Screen
         name="index"
       />
+      <Stack.Screen
+        name="SubjectList"
+        options={{
+          animation: 'slide_from_bottom'
+        }}
+      />
 
 
     </Stack>

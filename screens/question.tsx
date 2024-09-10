@@ -10,7 +10,7 @@ import dataq from '@/app/learn/data';
 
 export default function Question({
     simulate_matter = 'all',
-    onPress = () => {router.push('/')}
+    onBack = () => router.back()
 }) {
     function setQuestion(i_q,i_m){
         if (i_q >= answers[i_m].answers.length){
@@ -115,7 +115,7 @@ export default function Question({
         <ScrollView style={styles.container}>
             <View style={{paddingTop: 25, paddingHorizontal: 25, flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15}}>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <TouchableOpacity style={styles.btn} onPress={onPress}>
+                    <TouchableOpacity style={styles.btn} onPress={onBack}>
                         <Entypo name='chevron-small-left' size={24} />
                     </TouchableOpacity>
                     <Text style={{marginLeft: 10, fontSize: 20, fontWeight: 900}}>{matter}</Text>

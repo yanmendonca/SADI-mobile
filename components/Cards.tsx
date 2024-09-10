@@ -393,7 +393,6 @@ const styles = StyleSheet.create({
   },
   titleText: {
     height: 19,
-    fontFamily: 'Inter',
     fontSize: 16,
     fontWeight: '700',
     lineHeight: 19,
@@ -403,7 +402,6 @@ const styles = StyleSheet.create({
   },
   durationText: {
     height: 15,
-    fontFamily: 'Inter',
     fontSize: 12,
     fontWeight: '400',
     lineHeight: 14.523,
