@@ -23,20 +23,26 @@ export default function Question({
             i_q = answers[i_m].answers.length-1
         }
         setQuestionIndex(i_q);
-        setMatter(dataq[i_m].matter);
-        setCurrentAnswer(answers[getMatterIndex(dataq[i_m].matter)].answers[i_q])
+        if (simulate_matter == 'all'){
+            setMatter(data1[i_m].matter);
+        }
+        setCurrentAnswer(answers[getMatterIndex(data1[i_m].matter)].answers[i_q])
     }
 
     function getMatterIndex(matter_name){
-        switch (matter_name) {
-            case dataq[0].matter:
-                return 0
-            case dataq[1].matter:
-                return 1
-            case dataq[2].matter:
-                return 2
-            default:
-                break;
+        if (simulate_matter == 'all'){
+            switch (matter_name) {
+                case data1[0].matter:
+                    return 0
+                case data1[1].matter:
+                    return 1
+                case data1[2].matter:
+                    return 2
+                default:
+                    break;
+            }
+        }else{
+            return 0
         }
     }
     
@@ -68,7 +74,7 @@ export default function Question({
         }
     }
 
-    let data = Array.apply(null, dataq).filter((y)=>{ 
+    const data1 = Array.apply(null, dataq).filter((y)=>{ 
         if (simulate_matter == 'all'){
             return true
         }
@@ -79,7 +85,7 @@ export default function Question({
         }
     })
 
-    data = Array.apply(null, data).map((y,i)=>{ 
+    const data = Array.apply(null, data1).map((y,i)=>{ 
         return (
             {
                 title: y.matter,
@@ -131,9 +137,9 @@ export default function Question({
                 <View style={[styles.card, {padding: 10}]}>
                     <Text style={{fontSize: 16, fontWeight: 700, color: '#656B71', marginBottom: 10}}>Questão {question_index+1}</Text>
                     <View style={{alignItems: 'center'}}>
-                        {dataq[getMatterIndex(matter)].questions[question_index].img !== '' && <Image 
+                        {data1[getMatterIndex(matter)].questions[question_index].img !== '' && <Image 
                         resizeMode='contain'
-                        source={dataq[getMatterIndex(matter)].questions[question_index].img}
+                        source={data1[getMatterIndex(matter)].questions[question_index].img}
                         style={{width: '100%',height:200,resizeMode:'contain', borderRadius: 12}}                            
                         />}
                     </View>
@@ -141,10 +147,10 @@ export default function Question({
 
                 <View style={[styles.card, {padding: 10}]}>
                     <Text style={{fontSize: 14, color: '#656B71', textAlign: 'justify', marginBottom: 20}}>
-                    {dataq[getMatterIndex(matter)].questions[question_index].description}
+                    {data1[getMatterIndex(matter)].questions[question_index].description}
                     </Text>
                     <View>
-                        {dataq[getMatterIndex(matter)].questions[question_index].options.map((data,id)=>{
+                        {data1[getMatterIndex(matter)].questions[question_index].options.map((data,id)=>{
                             id = answerTemplate[id]
                             return(
                             <TouchableOpacity key={id} style={[styles.card, {flexDirection: 'row', alignItems: 'center'}, currentAnswer === id && {borderColor: '#1C5BFF', backgroundColor: '#EFF5FF'}]}
