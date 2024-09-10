@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
         flexDirection: "row",
         alignItems: "center"
-    },
+    }, 
     cardSubjectImage: {
         height: 90,
         width: 90,
