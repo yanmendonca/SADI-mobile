@@ -106,86 +106,89 @@ export default function App(): React.JSX.Element {
   );
 }
 
-export const SimulatedExamCard = () => {
-  const animatedValue = useRef(new Animated.Value(1)).current;
+const cardData = [
+  { title: "Química Geral", duration: "100 min", image: require('@/assets/images/TutorialsThumb/QuimGer.jpg'), status: "available", route: "learn/all/question" },
+  { title: "Química Orgânica", duration: "60 min", image: require('@/assets/images/TutorialsThumb/QuimOrg.jpg'), status: "done", route: "learn/Química_Orgânica/question" },
+  { title: "Eletroquímica", duration: "50 min", image: require('@/assets/images/TutorialsThumb/Eletroquim.jpg'), status: "available", route: "learn/Eletroquímica/question" },
+  { title: "Termoquímica", duration: "70 min", image: require('@/assets/images/TutorialsThumb/Termoquim.jpg'), status: "available", route: "" },
+  { title: "Estequiometria", duration: "100 min", image: require('@/assets/images/TutorialsThumb/Estequiom.jpg'), status: "available", route: "" },
+];
 
-  const handlePressOut = (route: string) => {
-    Animated.spring(animatedValue, {
-      toValue: 1,
-      useNativeDriver: true,
-    }).start(() => {
-      router.push(`/${route}`);
+export const SimulatedExamCard = () => {
+  const [activeCardIndex, setActiveCardIndex] = useState<number | null>(null);
+  const animatedValues = useRef(cardData.map(() => new Animated.Value(1))).current;
+  const opacityValues = useRef(cardData.map(() => new Animated.Value(1))).current;
+
+  const handlePressIn = (index: number) => {
+    setActiveCardIndex(index);
+    Animated.parallel([
+      Animated.spring(animatedValues[index], {
+        toValue: 0.95,
+        useNativeDriver: true,
+      }),
+      Animated.timing(opacityValues[index], {
+        toValue: 0.6,
+        duration: 150,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
+  const handlePressOut = (index: number) => {
+    Animated.parallel([
+      Animated.spring(animatedValues[index], {
+        toValue: 1,
+        useNativeDriver: true,
+      }),
+      Animated.timing(opacityValues[index], {
+        toValue: 1,
+        duration: 150,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
+      setActiveCardIndex(null);
     });
   };
 
-  const handlePressIn = () => {
-    Animated.spring(animatedValue, {
-      toValue: 0.95,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const animatedStyle = {
-    transform: [{ scale: animatedValue }],
+  const handlePress = (route: string) => {
+    if (route) {
+      router.push(`/${route}`);
+    }
   };
 
   return (
-    <Animated.View style={[styles.cardContainer, animatedStyle]}>
+    <View style={styles.cardContainer}>
       <View style={styles.headerContainer}>
         <Text style={styles.sectionTitle}>Simulados</Text>
         <Pressable onPress={() => {}}>
           <Text style={styles.sectionLink}>Ver todos</Text>
         </Pressable>
       </View>
-  
+
       <View style={styles.classCardsWrapper}>
-
-      <TouchableOpacity onPressIn={handlePressIn} onPressOut={() => handlePressOut('learn/all/question')}>
-          <ClassCard
-            title="Química Geral"
-            duration="100 min"
-            imageSource={require('@/assets/images/TutorialsThumb/QuimGer.jpg')}
-            status="available"
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPressIn={handlePressIn} onPressOut={() => handlePressOut('learn/Química Orgânica/question')}>
-          <ClassCard
-            title="Química Orgânica"
-            duration="60 min"
-            imageSource={require('@/assets/images/TutorialsThumb/QuimOrg.jpg')}
-            status="done"
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPressIn={handlePressIn} onPressOut={() => handlePressOut('learn/Eletroquímica/question')}>
-          <ClassCard
-            title="Eletroquímica"
-            duration="50 min"
-            imageSource={require('@/assets/images/TutorialsThumb/Eletroquim.jpg')}
-            status="available"
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPressIn={handlePressIn} onPressOut={() => handlePressOut('')}>
-          <ClassCard
-            title="Termoquímica"
-            duration="70 min"
-            imageSource={require('@/assets/images/TutorialsThumb/Termoquim.jpg')}
-            status="available"
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPressIn={handlePressIn} onPressOut={() => handlePressOut('')}>
-          <ClassCard
-            title="Estequiometria"
-            duration="100 min"
-            imageSource={require('@/assets/images/TutorialsThumb/Estequiom.jpg')}
-            status="available"
-          />
-        </TouchableOpacity>
+        {cardData.map((card, index) => (
+          <Animated.View 
+            key={index} 
+            style={[
+              { transform: [{ scale: animatedValues[index] }], opacity: opacityValues[index] }
+            ]}
+          >
+            <Pressable
+              onPressIn={() => handlePressIn(index)}
+              onPressOut={() => handlePressOut(index)}
+              onPress={() => handlePress(card.route)}
+            >
+              <ClassCard
+                title={card.title}
+                duration={card.duration}
+                imageSource={card.image}
+                status={card.status as "available" | "done"}
+              />
+            </Pressable>
+          </Animated.View>
+        ))}
       </View>
-    </Animated.View>
+    </View>
   );
 };
 
