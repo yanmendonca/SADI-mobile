@@ -81,6 +81,7 @@ export default function Layout() {
       icon={({color,size})=>(
         <Ionicons name={'folder-outline'} size={14}/>
       )}
+      
       />
 
       <DrawerItem label={"Configurações"}
@@ -90,15 +91,6 @@ export default function Layout() {
       icon={({color,size})=>(
         <Ionicons name={'settings-outline'} size={14}/>
       )}
-      />
-
-      <DrawerItem label={"telatres"}
-        onPress={()=>{
-          router.push('/telatres')
-        }}
-        icon={({color,size})=>(
-          <Ionicons name={'book-outline'} size={14}/>
-        )}
       />
 
 
@@ -112,7 +104,7 @@ export default function Layout() {
         <Drawer
           screenOptions={{
             headerShown: false,
-            swipeEnabled: false
+            swipeEnabled: false,
           }}
           drawerContent={(props) => <CustomDrawerContent children={undefined} {...props} />}
         />
