@@ -41,8 +41,8 @@ export const SubjectList: React.FC<Props> = ({ areaName, subjects }) => {
             <Text style={styles.headerText}>{areaName}</Text>
         </ImageBackground>
         {   
-            subjects.map((item) =>
-                <TouchableOpacity  onPress={() => navigation.navigate("telatres")}>
+            subjects.map((item,i) =>
+                <TouchableOpacity key={i} onPress={() => navigation.navigate("telatres")}>
                     <Box style={styles.cardSubject}>
                         <Image style={styles.cardSubjectImage} source={item.image} alt="subject background"/>
                         <View style={styles.cardSubjectTextContainer}>
