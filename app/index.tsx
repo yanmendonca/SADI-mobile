@@ -3,7 +3,7 @@ import { StyleSheet, Image, Platform, SafeAreaView, Text, ScrollView, View } fro
 
 import Carousel from 'react-native-reanimated-carousel';
 
-import { CardProgress, CardImage, CardProgressHorizontal } from '@/components/Cards'
+import { CardProgress, CardProgressLinear, CardImage, CardProgressHorizontal } from '@/components/Cards'
 import { MainHeader } from '@/components/Headers'
 import { Dimensions } from 'react-native';
 import { Link } from 'expo-router';
@@ -54,6 +54,28 @@ export default function Index() {
     },
   ]
 
+  const bestMatters = [
+    {
+      matter: 'História',
+      value: 0.95
+    },
+    {
+      matter: 'Química',
+      value: 0.9
+    }
+  ]
+
+  const worstMatters = [
+    {
+      matter: 'Matemática',
+      value: 0.65
+    },
+    {
+      matter: 'Português',
+      value: 0.55
+    }
+  ]
+
   return (
     <ScrollView style={{ flex: 1, backgroundColor: '#F9FAFB' }}>
       <MainHeader route='Home'/>
@@ -62,6 +84,11 @@ export default function Index() {
           <CardProgress title='Tensão Emocional' value={0.55} color='#E8F61D'></CardProgress>
           <CardProgress title='Ânimo Baixo' value={0.35}></CardProgress>
           <CardProgress title='Engajamento' value={0.75}></CardProgress>
+        </View>
+
+        <View style={[styles.section1]}>
+          <CardProgressLinear title='Melhores disciplinas' data={bestMatters} style={{marginRight: 2.5}}></CardProgressLinear>
+          <CardProgressLinear title='Piores disciplinas' data={worstMatters} style={{marginLeft: 2.5}} color='red'></CardProgressLinear>
         </View>
 
         <View style={{ marginTop: 16 }}>

@@ -1,9 +1,10 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { PropsWithChildren, useState } from 'react';
-import { StyleSheet, TouchableOpacity, useColorScheme, View, Text, Image, ImageBackground, ImageSourcePropType, ScrollView, Pressable } from 'react-native';
+import React, { PropsWithChildren, useState } from 'react';
+import { StyleSheet, TouchableOpacity, useColorScheme, View, Text, Image, ImageBackground, ImageSourcePropType, ScrollView, Pressable, ViewStyle, DimensionValue } from 'react-native';
 import { Circle, Svg } from "react-native-svg"
 import * as Progress from 'react-native-progress';
-import { router } from 'expo-router'
+import { Href, router } from 'expo-router'
+import { Float } from 'react-native/Libraries/Types/CodegenTypes';
 
 interface ClassCardProps {
   title: string;
@@ -18,13 +19,55 @@ interface TutorialsCardProps {
   imageSource: ImageSourcePropType;
 }
 
-export function CardProgress({
-  height = 150,
-  width = 110,
+interface CardProgressProps {
+  title?: string;
+  value?: number;
+  color?: string;
+  height?: DimensionValue;
+  width?: DimensionValue;
+  style?: ViewStyle;
+}
+interface CardProgressLinearDataProps {
+  matter: string;
+  value: Float;
+}
+
+interface CardProgressLinearProps {
+  title?: string;
+  color?: string;
+  data?: CardProgressLinearDataProps[];
+  height?: DimensionValue;
+  width?: DimensionValue;
+  style?: ViewStyle;
+  fill?: boolean;
+  gap?: number;
+}
+
+interface CardProgressHorizontalProps {
+  title?: string;
+  value?: number;
+  color?: string;
+  height?: number;
+  style?: ViewStyle;
+  img?: NodeRequire;
+  route?: Href<string>;
+}
+
+interface CardImageProps {
+  title?: string;
+  height?: DimensionValue;
+  width?: DimensionValue;
+  img?: NodeRequire;
+}
+
+export const CardProgress: React.FC<CardProgressProps> = ({
   title = "Title",
   value = 0.5,
-  color = 'blue'
-}) {
+  color = 'blue',
+  height = 150,
+  width = 110,
+  style = {}
+}) => {
   
   const [isOpen, setIsOpen] = useState(false);
   const theme = useColorScheme() ?? 'light';
@@ -34,31 +77,29 @@ export function CardProgress({
       width: width,
       borderRadius: 12,
       borderWidth: 1,
+      padding:15,
       borderColor: '#E5E7EB',
       backgroundColor: '#FFFFFF'
     },
     title: {
-      width: 95,
+      width: '120%',
       height: 34,
-      position: 'absolute',
-      top: 14,
-      left: 15,
       fontWeight: 'bold',
-      fontSize: 14
+      fontSize: 14,
     },
     progress: {
       alignItems: 'center',
-      top: 64
+      marginTop: 15
     },
     progressText: {
-      left: '30%',
+      left: '10%',
       fontSize: 24,
       fontWeight: '900',
       color: 'black'
     }
   });
   return (
-    <View style={styles.card}>
+    <View style={[styles.card, style]}>
       <Text style={styles.title}>{title}</Text>
       <Progress.Circle
         progress={value}
@@ -76,12 +117,83 @@ export function CardProgress({
   );
 }
 
-export function CardImage({
+export const CardProgressLinear: React.FC<CardProgressLinearProps> = ({
+  title = "Title",
+  color = 'blue',
+  data = [
+    {
+      matter: 'Matemática',
+      value: 0.5
+    },
+    {
+      matter: 'Física',
+      value: 0.5
+    }
+  ],
+  width = 'auto',
+  height = 'auto',
+  fill = true,
+  gap = 5,
+  style = {}
+}) => {
+  
+  const [isOpen, setIsOpen] = useState(false);
+  const theme = useColorScheme() ?? 'light';
+  const styles = StyleSheet.create({
+    card: {
+      height: height,
+      width: width,
+      borderRadius: 12,
+      borderWidth: 1,
+      padding: 15,
+      borderColor: '#E5E7EB',
+      backgroundColor: '#FFFFFF',
+    },
+    title: {
+      fontWeight: 'bold',
+      fontSize: 14
+    },
+    progress: {
+      marginTop:5
+    },
+    progressText: {
+      left: '30%',
+      fontSize: 24,
+      fontWeight: '900',
+      color: 'black'
+    }
+  });
+  return (
+    <View style={[styles.card, style, (fill == true && width == 'auto') ? {flex: 1} : null]}>
+      <Text style={styles.title}>{title}</Text>
+      <View style={{marginTop: 15, marginHorizontal: 10}}>
+        {data.map( (el,i) => (
+          <View key={i} style={(i>0)?{marginTop: gap}:null}>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text>{el.matter}</Text>
+              <Text>{(el.value*100).toFixed(0)}</Text>
+            </View> 
+            <Progress.Bar
+              progress={el.value}
+              width={null}
+              style={styles.progress}
+              color={color}
+              unfilledColor={'#BBBBBB'}
+              borderWidth={0}
+            />
+          </View>
+        ))}
+      </View>
+    </View>
+  );
+}
+
+export const CardImage: React.FC<CardImageProps> = ({
   height = 180,
   width = 120,
   title = 'Title',
   img = require('@/assets/images/focus.jpg')
-}) {
+}) => {
 
   const styles = StyleSheet.create({
     card: {
@@ -119,22 +231,20 @@ export function CardImage({
   )
 }
 
-export function CardProgressHorizontal({
+export const CardProgressHorizontal: React.FC <CardProgressHorizontalProps> = ({
   height = 85,
-  width = 'auto',
   title = "Title",
   value = 0.5,
   color = 'blue',
   img = require('@/assets/images/focus.jpg'),
   style = {},
   route = '/'
-}) {
+}) => {
 
   const styles = StyleSheet.create({
     card: {
       flexDirection: 'row',
       height: height,
-      // width: width,
       borderRadius: 12,
       borderWidth: 1,
       borderColor: '#E5E7EB',
