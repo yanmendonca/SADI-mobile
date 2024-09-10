@@ -93,6 +93,12 @@ export default function Layout() {
       )}
       />
 
+      <DrawerItem label={"Login"}
+      onPress={()=>{
+        router.push('/login')
+      }}
+      />  
+
 
     </DrawerContentScrollView>
   )}
