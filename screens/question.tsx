@@ -12,7 +12,7 @@ export default function Question({
     simulate_matter = 'all',
     onBack = () => router.back()
 }) {
-    function setQuestion(i_q,i_m){
+    function setQuestion(i_q:number,i_m:number){
         if (i_q >= answers[i_m].answers.length){
             i_m += 1
             i_q = 0
@@ -29,7 +29,7 @@ export default function Question({
         setCurrentAnswer(answers[getMatterIndex(data1[i_m].matter)].answers[i_q])
     }
 
-    function getMatterIndex(matter_name){
+    function getMatterIndex(matter_name:string){
         if (simulate_matter == 'all'){
             switch (matter_name) {
                 case data1[0].matter:
@@ -38,15 +38,19 @@ export default function Question({
                     return 1
                 case data1[2].matter:
                     return 2
+                case data1[3].matter:
+                    return 3
+                case data1[4].matter:
+                    return 4
                 default:
-                    break;
+                    return 0
             }
         }else{
             return 0
         }
     }
     
-    function updateAnswers(matter_name,answer){
+    function updateAnswers(matter_name:string,answer:string){
         let answersState = answers
         const matter_id = getMatterIndex(matter_name)
         setCurrentAnswer(answer)
@@ -74,7 +78,7 @@ export default function Question({
         }
     }
 
-    const data1 = Array.apply(null, dataq).filter((y)=>{ 
+    const data1 = dataq.filter((y)=>{ 
         if (simulate_matter == 'all'){
             return true
         }
@@ -85,7 +89,7 @@ export default function Question({
         }
     })
 
-    const data = Array.apply(null, data1).map((y,i)=>{ 
+    const data = data1.map((y,i)=>{ 
         return (
             {
                 title: y.matter,
@@ -104,7 +108,7 @@ export default function Question({
     const [question_index, setQuestionIndex] = useState(0);
     const [matter, setMatter] = useState(data[0].title);
 
-    const initialAnswersState = Array.apply(null, data).map((y,i)=>{
+    const initialAnswersState = data.map((y,i)=>{
         return(
             {
                 matter: y.title,
@@ -137,7 +141,7 @@ export default function Question({
                 <View style={[styles.card, {padding: 10}]}>
                     <Text style={{fontSize: 16, fontWeight: 700, color: '#656B71', marginBottom: 10}}>Questão {question_index+1}</Text>
                     <View style={{alignItems: 'center'}}>
-                        {data1[getMatterIndex(matter)].questions[question_index].img !== '' && <Image 
+                        {data1[getMatterIndex(matter)].questions[question_index].img !== undefined && <Image 
                         resizeMode='contain'
                         source={data1[getMatterIndex(matter)].questions[question_index].img}
                         style={{width: '100%',height:200,resizeMode:'contain', borderRadius: 12}}                            
@@ -150,8 +154,8 @@ export default function Question({
                     {data1[getMatterIndex(matter)].questions[question_index].description}
                     </Text>
                     <View>
-                        {data1[getMatterIndex(matter)].questions[question_index].options.map((data,id)=>{
-                            id = answerTemplate[id]
+                        {data1[getMatterIndex(matter)].questions[question_index].options.map((data,i)=>{
+                            const id = answerTemplate[i]
                             return(
                             <TouchableOpacity key={id} style={[styles.card, {flexDirection: 'row', alignItems: 'center'}, currentAnswer === id && {borderColor: '#1C5BFF', backgroundColor: '#EFF5FF'}]}
                             onPress={()=> {id !== currentAnswer ? updateAnswers(matter,id) : updateAnswers(matter,'') }}
@@ -206,7 +210,7 @@ export default function Question({
 
                         <ScrollView style={{marginTop: 20}}>
                         {data.map((value, index) => {
-                            return <Accordion cProgress={matterProgress[index]} value={value} key={index} type={value.type} callBack={(v,i,matter)=>{setQuestion(i,index)}} check={answers[index].answers}/>;
+                            return <Accordion cProgress={matterProgress[index]} value={value} key={index} type={value.type} callBack={(i:number)=>{setQuestion(i,index)}} check={answers[index].answers}/>;
                             })}
                         </ScrollView>
                         
