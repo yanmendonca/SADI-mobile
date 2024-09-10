@@ -19,7 +19,6 @@ export function MainHeader({
         <View>
             <StatusBar style="light" backgroundColor="black" translucent={true} />
 
-            {/* Header Menu */}
             <View>
                 <View style={styles.header}>
                     <Avatar
@@ -51,25 +50,26 @@ export const SubjectHeader = ({ redirectTo }: { redirectTo?: string }) => {
   
     const handleBackPress = () => {
       if (redirectTo) {
-        navigation.navigate(redirectTo as never); // Adicionando 'as never' para forçar o tipo correto
+        navigation.navigate(redirectTo as never);
       } else {
         navigation.goBack();
       }
     };
-  
+    
     return (
       <SafeAreaView style={styles.safeArea}>
-        <TouchableOpacity style={styles.Subjheader} onPress={handleBackPress}>
-          <View style={styles.backButton}>
+        <View style={styles.Subjheader}>
+          <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
             <Ionicons name="chevron-back-outline" size={24} color="black" style={styles.backIcon} />
-          </View>
+          </TouchableOpacity>
           <Text style={styles.headerTitle} numberOfLines={1}>
             Química
           </Text>
-        </TouchableOpacity>
+        </View>
       </SafeAreaView>
     );
   };
+  
   
 
 const styles = StyleSheet.create({
