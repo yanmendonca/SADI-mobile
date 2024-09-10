@@ -3,19 +3,22 @@ import { SafeAreaView, ScrollView, View, Text, Pressable, StyleSheet, TouchableO
 import { ClassCard, TutorialsCard } from '@/components/Cards';
 import { SubjectHeader } from '@/components/Headers';
 import { Video, ResizeMode } from 'expo-av';
-import { router } from 'expo-router';
+import { Href, router } from 'expo-router';
 import Constants from 'expo-constants';
+import { videos } from '@/assets/index'
 
 export default function App(): React.JSX.Element {
   const videoRef = useRef(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalVideo, setModalVideo] = useState(undefined);
 
   const openYouTube = (url: string) => {
     Linking.openURL(url).catch((err) => console.error('Erro ao abrir URL', err));
   };
 
-  const openLocalVideo = () => {
+  const openLocalVideo = (video_path: any) => {
     setModalVisible(true);
+    setModalVideo(video_path)
   };
 
   const closeModal = () => {
@@ -24,7 +27,7 @@ export default function App(): React.JSX.Element {
 
   return (
     <SafeAreaView style={{ flex: 1, paddingTop: Constants.statusBarHeight }}>
-      <SubjectHeader />
+      <SubjectHeader title={'Química'} />
 
       <ScrollView contentInsetAdjustmentBehavior="automatic" style={styles.scrollView}>
         
@@ -38,7 +41,7 @@ export default function App(): React.JSX.Element {
         <View style={{ paddingLeft: 16 }}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             
-            <TouchableOpacity onPress={openLocalVideo}>
+            <TouchableOpacity onPress={()=> openLocalVideo(videos.learn.video1)}>
               <TutorialsCard
                 title="Eletroquímica"
                 duration="60 min"
@@ -46,7 +49,7 @@ export default function App(): React.JSX.Element {
               />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => openYouTube('https://www.youtube.com/watch?v=zRd8e8uQCgM')}>
+            <TouchableOpacity onPress={() => openLocalVideo(videos.learn.video2)}>
               <TutorialsCard
                 title="Soluções"
                 duration="50 min"
@@ -54,7 +57,7 @@ export default function App(): React.JSX.Element {
               />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => openYouTube('https://www.youtube.com/watch?v=5aPH2E9UxhM')}>
+            <TouchableOpacity onPress={() => openLocalVideo(videos.learn.video3)}>
               <TutorialsCard
                 title="Termoquímica"
                 duration="50 min"
@@ -92,7 +95,7 @@ export default function App(): React.JSX.Element {
             <Video
               ref={videoRef}
               style={styles.video}
-              source={require('@/assets/Videos/VideoTest.mp4')}
+              source={modalVideo}
               useNativeControls
               resizeMode={ResizeMode.CONTAIN}
               isLooping
@@ -105,13 +108,19 @@ export default function App(): React.JSX.Element {
     </SafeAreaView>
   );
 }
-
-const cardData = [
-  { title: "Química Geral", duration: "100 min", image: require('@/assets/images/TutorialsThumb/QuimGer.jpg'), status: "available", route: "learn/all/question" },
-  { title: "Química Orgânica", duration: "60 min", image: require('@/assets/images/TutorialsThumb/QuimOrg.jpg'), status: "done", route: "learn/Química_Orgânica/question" },
-  { title: "Eletroquímica", duration: "50 min", image: require('@/assets/images/TutorialsThumb/Eletroquim.jpg'), status: "available", route: "learn/Eletroquímica/question" },
-  { title: "Termoquímica", duration: "70 min", image: require('@/assets/images/TutorialsThumb/Termoquim.jpg'), status: "available", route: "" },
-  { title: "Estequiometria", duration: "100 min", image: require('@/assets/images/TutorialsThumb/Estequiom.jpg'), status: "available", route: "" },
+type cardDataProp = {
+  title: string;
+  duration: string;
+  image: any;
+  status: string;
+  route: any
+}
+const cardData:cardDataProp[] = [
+  { title: "Química Geral", duration: "25 min", image: require('@/assets/images/TutorialsThumb/QuimGer.jpg'), status: "available", route: "/learn/all/question" },
+  { title: "Química Orgânica", duration: "6 min", image: require('@/assets/images/TutorialsThumb/QuimOrg.jpg'), status: "done", route: "/learn/Química_Orgânica/question" },
+  { title: "Eletroquímica", duration: "5 min", image: require('@/assets/images/TutorialsThumb/Eletroquim.jpg'), status: "available", route: "/learn/Eletroquímica/question" },
+  { title: "Termoquímica", duration: "7 min", image: require('@/assets/images/TutorialsThumb/Termoquim.jpg'), status: "available", route: "/learn/Termoquímica/question" },
+  { title: "Estequiometria", duration: "7 min", image: require('@/assets/images/TutorialsThumb/Estequiom.jpg'), status: "available", route: "/learn/Estequiometria/question" },
 ];
 
 export const SimulatedExamCard = () => {
@@ -150,9 +159,9 @@ export const SimulatedExamCard = () => {
     });
   };
 
-  const handlePress = (route: string) => {
+  const handlePress = (route: Href<string>) => {
     if (route) {
-      router.push(`/${route}`);
+      router.push(route);
     }
   };
 

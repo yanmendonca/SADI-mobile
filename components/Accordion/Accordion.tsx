@@ -69,7 +69,7 @@ const Accordion = ({value, type, cProgress, callBack, check}: Props) => {
           {type === 'regular' &&
             value.content.map((v, i) => {
               return (
-                <TouchableOpacity key={i} style={styles.content} onPress={()=>callBack(v,i,value.title)}>
+                <TouchableOpacity key={i} style={styles.content} onPress={()=>callBack(i)}>
                   <Text style={styles.textContent}>{v}</Text>
                   {check[i] !== '' && <Ionicons name="checkmark-circle" size={16} color="#94ED6B" />}
                 </TouchableOpacity>

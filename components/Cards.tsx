@@ -1,9 +1,10 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { PropsWithChildren, useState } from 'react';
-import { StyleSheet, TouchableOpacity, useColorScheme, View, Text, Image, ImageBackground, ImageSourcePropType, ScrollView, Pressable } from 'react-native';
+import React, { PropsWithChildren, useState } from 'react';
+import { StyleSheet, TouchableOpacity, useColorScheme, View, Text, Image, ImageBackground, ImageSourcePropType, ScrollView, Pressable, ViewStyle, DimensionValue, SafeAreaView } from 'react-native';
 import { Circle, Svg } from "react-native-svg"
 import * as Progress from 'react-native-progress';
-import { router } from 'expo-router'
+import { Href, router } from 'expo-router'
+import { Float } from 'react-native/Libraries/Types/CodegenTypes';
 
 interface ClassCardProps {
   title: string;
@@ -18,13 +19,55 @@ interface TutorialsCardProps {
   imageSource: ImageSourcePropType;
 }
 
-export function CardProgress({
-  height = 150,
-  width = 110,
+interface CardProgressProps {
+  title?: string;
+  value?: number;
+  color?: string;
+  height?: DimensionValue;
+  width?: DimensionValue;
+  style?: ViewStyle;
+}
+interface CardProgressLinearDataProps {
+  matter: string;
+  value: Float;
+}
+
+interface CardProgressLinearProps {
+  title?: string;
+  color?: string;
+  data?: CardProgressLinearDataProps[];
+  height?: DimensionValue;
+  width?: DimensionValue;
+  style?: ViewStyle;
+  fill?: boolean;
+  gap?: number;
+}
+
+interface CardProgressHorizontalProps {
+  title?: string;
+  value?: number;
+  color?: string;
+  height?: number;
+  style?: ViewStyle;
+  img?: NodeRequire;
+  route?: Href<string>;
+}
+
+interface CardImageProps {
+  title?: string;
+  height?: DimensionValue;
+  width?: DimensionValue;
+  img?: NodeRequire;
+}
+
+export const CardProgress: React.FC<CardProgressProps> = ({
   title = "Title",
   value = 0.5,
-  color = 'blue'
-}) {
+  color = 'blue',
+  height = 150,
+  width = 110,
+  style = {}
+}) => {
   
   const [isOpen, setIsOpen] = useState(false);
   const theme = useColorScheme() ?? 'light';
@@ -34,31 +77,29 @@ export function CardProgress({
       width: width,
       borderRadius: 12,
       borderWidth: 1,
+      padding:15,
       borderColor: '#E5E7EB',
       backgroundColor: '#FFFFFF'
     },
     title: {
-      width: 95,
+      width: '120%',
       height: 34,
-      position: 'absolute',
-      top: 14,
-      left: 15,
       fontWeight: 'bold',
-      fontSize: 14
+      fontSize: 14,
     },
     progress: {
       alignItems: 'center',
-      top: 64
+      marginTop: 15
     },
     progressText: {
-      left: '30%',
+      left: '10%',
       fontSize: 24,
       fontWeight: '900',
       color: 'black'
     }
   });
   return (
-    <View style={styles.card}>
+    <View style={[styles.card, style]}>
       <Text style={styles.title}>{title}</Text>
       <Progress.Circle
         progress={value}
@@ -76,12 +117,83 @@ export function CardProgress({
   );
 }
 
-export function CardImage({
+export const CardProgressLinear: React.FC<CardProgressLinearProps> = ({
+  title = "Title",
+  color = 'blue',
+  data = [
+    {
+      matter: 'Matemática',
+      value: 0.5
+    },
+    {
+      matter: 'Física',
+      value: 0.5
+    }
+  ],
+  width = 'auto',
+  height = 'auto',
+  fill = true,
+  gap = 5,
+  style = {}
+}) => {
+  
+  const [isOpen, setIsOpen] = useState(false);
+  const theme = useColorScheme() ?? 'light';
+  const styles = StyleSheet.create({
+    card: {
+      height: height,
+      width: width,
+      borderRadius: 12,
+      borderWidth: 1,
+      padding: 15,
+      borderColor: '#E5E7EB',
+      backgroundColor: '#FFFFFF',
+    },
+    title: {
+      fontWeight: 'bold',
+      fontSize: 14
+    },
+    progress: {
+      marginTop:5
+    },
+    progressText: {
+      left: '30%',
+      fontSize: 24,
+      fontWeight: '900',
+      color: 'black'
+    }
+  });
+  return (
+    <View style={[styles.card, style, (fill == true && width == 'auto') ? {flex: 1} : null]}>
+      <Text style={styles.title}>{title}</Text>
+      <View style={{marginTop: 15, marginHorizontal: 10}}>
+        {data.map( (el,i) => (
+          <View key={i} style={(i>0)?{marginTop: gap}:null}>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text>{el.matter}</Text>
+              <Text>{(el.value*100).toFixed(0)}</Text>
+            </View> 
+            <Progress.Bar
+              progress={el.value}
+              width={null}
+              style={styles.progress}
+              color={color}
+              unfilledColor={'#BBBBBB'}
+              borderWidth={0}
+            />
+          </View>
+        ))}
+      </View>
+    </View>
+  );
+}
+
+export const CardImage: React.FC<CardImageProps> = ({
   height = 180,
   width = 120,
   title = 'Title',
   img = require('@/assets/images/focus.jpg')
-}) {
+}) => {
 
   const styles = StyleSheet.create({
     card: {
@@ -119,22 +231,20 @@ export function CardImage({
   )
 }
 
-export function CardProgressHorizontal({
+export const CardProgressHorizontal: React.FC <CardProgressHorizontalProps> = ({
   height = 85,
-  width = 'auto',
   title = "Title",
   value = 0.5,
   color = 'blue',
   img = require('@/assets/images/focus.jpg'),
   style = {},
   route = '/'
-}) {
+}) => {
 
   const styles = StyleSheet.create({
     card: {
       flexDirection: 'row',
       height: height,
-      // width: width,
       borderRadius: 12,
       borderWidth: 1,
       borderColor: '#E5E7EB',
@@ -288,6 +398,115 @@ export const SimulatedExamCard = () => {
     </View>
   );
 };
+
+export const ProfileCard = () => {
+  return (
+    <View style={styles.profileContainer}>
+      <ImageBackground
+        style={styles.profileImage}
+        source={{ uri: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80' }}
+        resizeMode="cover"
+        imageStyle={styles.circleImage}
+      />
+      <View style={styles.profileCard}>
+        <Text style={styles.profileName} numberOfLines={1}>
+          Fulana da Silva Santos
+        </Text>
+        <Text style={styles.profileClass} numberOfLines={1}>
+          1º Ano A - Ensino Médio
+        </Text>
+        <Text style={styles.profileAge} numberOfLines={1}>
+          15 anos
+        </Text>
+      </View>
+    </View>
+  );
+};
+
+export const ProfileAttendanceCard = () => {
+  return (
+    <View style={styles.profileAttendanceContainer}>
+      <Text style={styles.profileAttendanceTitle} numberOfLines={1}>
+        Presença
+      </Text>
+      <View style={styles.profileAttendanceToday}>
+        <Ionicons name="chevron-down-outline" size={10} color="#000" style={styles.profileAttendanceIcon} />
+        <Text style={styles.profileAttendanceTodayText} numberOfLines={1}>
+          Hoje
+        </Text>
+      </View>
+      <View style={styles.profileAttendanceClasses}>
+        {attendanceData.map((data, index) => (
+          <View key={index} style={styles.profileAttendanceClass}>
+            <Text style={styles.profileAttendanceClassText}>{data.class}</Text>
+            <View
+              style={[
+                styles.profileAttendanceStatus,
+                { backgroundColor: data.color },
+              ]}
+            />
+          </View>
+        ))}
+      </View>
+    </View>
+  );
+};
+
+const attendanceData = [
+  { class: '1° Aula', color: '#ffe609' },
+  { class: '2° Aula', color: '#0eff09' },
+  { class: '3° Aula', color: '#0eff09' },
+  { class: '4° Aula', color: '#0eff09' },
+  { class: '5° Aula', color: '#0eff09' },
+  { class: '6° Aula', color: '#ff0909' },
+];
+
+export const ProfileReportCard = () => {
+  return (
+    <SafeAreaView>
+      <ScrollView contentInsetAdjustmentBehavior='automatic'>
+        <View style={styles.profileReportContainer}>
+          <Text style={styles.profileReportTitle} numberOfLines={1}>
+            Boletim
+          </Text>
+          <Text style={styles.profileReportSemester} numberOfLines={1}>
+            1° Semestre 2024
+          </Text>
+          <Ionicons name="chevron-down-outline" size={10} color="#000" style={styles.profileReportArrowIcon} />
+          <View style={styles.profileReportCard}>
+            <View style={styles.profileReportRowContainer}>
+              <Text style={styles.profileReportColumnHeader}>Disciplina</Text>
+              <View style={styles.profileReportDivider} />
+              <Text style={styles.profileReportColumnHeader}>Faltas</Text>
+              <View style={styles.profileReportDivider} />
+              <Text style={styles.profileReportColumnHeader}>Nota</Text>
+            </View>
+
+            {reportData.map((item, index) => (
+              <View key={index} style={styles.profileReportRowContainer}>
+                <Text style={styles.profileReportRowText}>{item.subject}</Text>
+                <View style={styles.profileReportDivider} />
+                <Text style={styles.profileReportRowText}>{item.misses}</Text>
+                <View style={styles.profileReportDivider} />
+                <Text style={styles.profileReportRowText}>{item.grade}</Text>
+              </View>
+            ))}
+          </View>
+
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+
+const reportData = [
+  { subject: 'Matemática', misses: '02', grade: '8,8' },
+  { subject: 'Português', misses: '01', grade: '7,6' },
+  { subject: 'Ciências', misses: '05', grade: '9,5' },
+  { subject: 'Geografia', misses: '00', grade: '7,2' },
+  { subject: 'História', misses: '03', grade: '10,0' },
+  { subject: 'Inglês', misses: '08', grade: '5,5' },
+];
 
 const styles = StyleSheet.create({
   imageWrapper: {
@@ -500,5 +719,208 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
+  },
+  
+  profileContainer: {
+    width: 350,
+    height: 86,
+    position: 'relative',
+    marginTop: 0,
+    marginRight: 'auto',
+    marginBottom: 0,
+    marginLeft: 'auto',
+  },
+  profileImage: {
+    width: 80,
+    height: 80,
+    position: 'relative',
+    zIndex: 4,
+    marginTop: -96.439,
+    marginLeft: 135,
+  },
+  circleImage: {
+    borderRadius: 50,
+  },
+  profileCard: {
+    width: 350,
+    height: 150,
+    backgroundColor: '#ffffff',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    position: 'absolute',
+    top: -61,
+    left: '50%',
+    transform: [{ translateY: 0 }, { translateX: -175 }],
+  },
+  profileName: {
+    height: 19,
+    fontSize: 16,
+    fontWeight: '700',
+    lineHeight: 19,
+    color: '#000000',
+    marginTop: 56,
+    marginLeft: 94,
+  },
+  profileClass: {
+    height: 15,
+    fontSize: 12,
+    fontWeight: '500',
+    lineHeight: 14.523,
+    color: '#656b71',
+    marginTop: 8.679,
+    marginLeft: 110.5,
+  },
+  profileAge: {
+    height: 15,
+    fontSize: 12,
+    fontWeight: '500',
+    lineHeight: 14.523,
+    color: '#656b71',
+    marginTop: 8.679,
+    marginLeft: 157.5,
+  },
+
+  profileAttendanceContainer: {
+    width: 335,
+    height: 177,
+    marginTop: 0,
+    marginHorizontal: 'auto',
+  },
+  profileAttendanceTitle: {
+    height: 24,
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#000000',
+    marginTop: 12,
+  },
+  profileAttendanceToday: {
+    width: 334,
+    height: 18,
+    position: 'relative',
+    marginTop: 14,
+  },
+  profileAttendanceIcon: {
+    width: 12,
+    height: 7,
+    position: 'absolute',
+    marginTop: 6,
+    marginLeft: 35,
+  },
+  profileAttendanceTodayText: {
+    height: 20,
+    fontSize: 15,
+    fontWeight: '400',
+    color: '#5f5f5f',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: 3,
+  },
+  profileAttendanceClasses: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  profileAttendanceClass: {
+    width: 46,
+    height: 90,
+    backgroundColor: '#ffffff',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.2)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  profileAttendanceClassText: {
+    fontSize: 14,
+    fontWeight: '400',
+    color: '#000000',
+    textAlign: 'center',
+    marginTop: 24,
+  },
+  profileAttendanceStatus: {
+    width: 46,
+    height: 18,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    marginTop: 26,
+  },
+
+  profileReportContainer: {
+    width: 335,
+    height: 'auto',
+    position: 'relative',
+    marginTop: 0,
+    marginHorizontal: 'auto',
+  },
+  profileReportTitle: {
+    height: 24,
+    fontSize: 20,
+    fontWeight: '600',
+    lineHeight: 24,
+    color: '#000000',
+    zIndex: 1,
+    marginBottom: 16, 
+    marginTop: 5
+  },
+  profileReportCard: {
+    width: '100%',
+    backgroundColor: '#ffffff',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.2)',
+    paddingVertical: 16,
+    paddingHorizontal: 12,
+    marginTop: 30
+  },
+  profileReportRowContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(0, 0, 0, 0.1)',
+    paddingVertical: 8,
+  },
+  profileReportColumnHeader: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#000',
+    textAlign: 'center',
+    flex: 1,
+  },
+  profileReportRowText: {
+    fontSize: 14,
+    fontWeight: '400',
+    color: '#000',
+    textAlign: 'center',
+    flex: 1, 
+  },
+  profileReportDivider: {
+    width: 1,
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+  },
+  profileReportSemester: {
+    height: 18,
+    fontSize: 15,
+    fontWeight: '400',
+    lineHeight: 18,
+    color: '#5f5f5f',
+    textAlign: 'left',
+    zIndex: 8,
+    position: 'absolute',
+    top: 38,
+    left: 0,
+  },
+  profileReportArrowIcon: {
+    width: 12,
+    height: 7,
+    position: 'absolute',
+    top: 43,
+    left: 138,
+    zIndex: 10,
+    marginLeft: -10
   },
 });
