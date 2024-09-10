@@ -1,4 +1,5 @@
 import { MaterialIcons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { Button, Icon, Image, Input, Stack } from "native-base";
 import { useState } from "react";
 import { Pressable, SafeAreaView, StyleSheet, View } from "react-native"
@@ -28,7 +29,7 @@ export const LoginForm = ({ style = {} }) => {
             } 
             placeholder="Senha" 
         />
-            <Button bgColor={"blue.600"} onPress={() => console.log("login")}>Login</Button>
+            <Button bgColor={"blue.600"} onPress={() => router.push('/')}>Login</Button>
         </Stack>
     </View>
 }

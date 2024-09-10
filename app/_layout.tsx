@@ -93,10 +93,13 @@ export default function Layout() {
       )}
       />
 
-      <DrawerItem label={"Login"}
+      <DrawerItem label={"Sair"}
       onPress={()=>{
         router.push('/login')
       }}
+      icon={({color,size})=>(
+        <Ionicons name={'exit-outline'} size={14}/>
+      )}
       />  
 
 
