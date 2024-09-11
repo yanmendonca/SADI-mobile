@@ -194,7 +194,6 @@ export const CardImage: React.FC<CardImageProps> = ({
   title = 'Title',
   img = require('@/assets/images/focus.jpg')
 }) => {
-
   const styles = StyleSheet.create({
     card: {
       height: height,
@@ -217,6 +216,7 @@ export const CardImage: React.FC<CardImageProps> = ({
       padding: 2
     }
   });
+
   return (
     <View style={styles.card}>
       <Image
@@ -226,10 +226,9 @@ export const CardImage: React.FC<CardImageProps> = ({
       <View style={styles.titleField}>
         <Text style={styles.title}>{title}</Text>
       </View>
-
     </View>
-  )
-}
+  );
+};
 
 export const CardProgressHorizontal: React.FC <CardProgressHorizontalProps> = ({
   height = 85,

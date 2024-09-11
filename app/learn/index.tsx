@@ -15,19 +15,23 @@ export default function Index() {
   const softSkills = [
     {
       key: 0,
-      name: 'Relacionamento'
+      name: 'Relacionamento',
+      img: require('@/assets/images/relacionamento.png')
     },
     {
       key: 0,
-      name: 'Foco'
+      name: 'Foco',
+      img: require('@/assets/images/focus.jpg')
     },
     {
       key: 0,
-      name: 'Autoconfiança'
+      name: 'Autoconfiança',
+      img: require('@/assets/images/autoconfiança.jpg')
     },
     {
       key: 0,
-      name: 'Adaptabilidade'
+      name: 'Adaptabilidade',
+      img: require('@/assets/images/adaptabilidade.jpg')
     }
   ]
 
@@ -35,24 +39,28 @@ export default function Index() {
     {
       key: 0,
       subject: 'Ciências da Natureza e suas Tecnologias',
-      value: 0.67
+      value: 0.67,
+      img: require('@/assets/images/TutorialsThumb/nature.jpg')
     },
     {
       key: 1,
       subject: 'Matemática e suas Tecnologias',
-      value: 0.40
+      value: 0.40,
+      img: require('@/assets/images/TutorialsThumb/math.png')
     },
     {
       key: 2,
       subject: 'Ciências Humanas e suas Tecnologias',
-      value: 0.25
+      value: 0.25,
+      img: require('@/assets/images/TutorialsThumb/humanities.jpg')
     },
     {
       key: 3,
       subject: 'Linguagens e suas Tecnologias',
-      value: 0.6
-    },
-  ]
+      value: 0.6,
+      img: require('@/assets/images/TutorialsThumb/languages.png')
+    }
+  ];  
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: '#F9FAFB' }}>
@@ -64,7 +72,12 @@ export default function Index() {
           <Text style={{ fontSize: 20, fontWeight: 900 }}>Simulados Preparatórios</Text>
           <View style={{ marginTop: 10 }}>
             {Simulados.map(data => (
-              <CardProgressHorizontal key={data.key} title={data.subject} value={data.value} route='/learn/SubjectList' color='#94ED6B'/>
+              <CardProgressHorizontal key={data.key}
+              title={data.subject}
+              value={data.value}
+              img={data.img} 
+              route='/learn/SubjectList' 
+              color='#94ED6B'/>
             ))}
           </View>
         </View>
@@ -77,7 +90,11 @@ export default function Index() {
               style={{ width: windowWidth }}
               data={[...softSkills]}
               renderItem={({ index }) => (
-                <CardImage key={softSkills[index].key} title={softSkills[index].name} />
+                <CardImage
+                  key={softSkills[index].key}
+                  title={softSkills[index].name}
+                  img={softSkills[index].img}
+                />
               )}
             />
           </View>
