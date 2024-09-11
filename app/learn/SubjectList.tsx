@@ -5,9 +5,9 @@ export const SubjectList: React.FC = () => {
                 areaName="CIÊNCIAS DA NATUREZA E SUAS TECNOLOGIAS" 
                 subjects={
                     [
-                        {name: "Física", done: true, totalMinutes: 120, image: require("@/assets/images/focus.jpg")},
-                        {name: "Química", done: false, totalMinutes: 120, image: require("@/assets/images/focus.jpg")},
-                        {name: "Biologia", done: false, totalMinutes: 120, image: require("@/assets/images/focus.jpg")}
+                        {name: "Física", done: true, totalMinutes: 120, image: require("@/assets/images/TutorialsThumb/fisica.png")},
+                        {name: "Química", done: false, totalMinutes: 120, image: require("@/assets/images/TutorialsThumb/quimica.jpg")},
+                        {name: "Biologia", done: false, totalMinutes: 120, image: require("@/assets/images/TutorialsThumb/biologia.jpg")}
                     ]
                 }>
             </SubjectListScreen>
