@@ -505,6 +505,74 @@ const reportData = [
   { subject: 'Inglês', misses: '08', grade: '5,5' },
 ];
 
+export const ResultsCard = (): React.JSX.Element => {
+  return (
+    <ScrollView scrollEnabled={true} contentInsetAdjustmentBehavior="automatic">
+      <View style={styles.ResultsCardContainer}>
+        <View style={styles.ResultsCard}>
+          <ImageBackground
+            style={styles.ResultsImageBackground}
+            source={require('@/assets/images/Loader.png')}
+            resizeMode="cover"
+          >
+            <Text style={styles.ResultsPercentage} numberOfLines={1}>
+              40%
+            </Text>
+          </ImageBackground>
+          <Text style={styles.ResultsDescription} numberOfLines={1}>
+            % de acertos
+          </Text>
+        </View>
+      </View>
+    </ScrollView>
+  );
+};
+
+export const ResultsDetailsCard = (): React.JSX.Element => {
+  return (
+    <ScrollView scrollEnabled={true} contentInsetAdjustmentBehavior="automatic">
+      <View style={styles.ResultsDetailsCardContainer}>
+        <View style={styles.ResultsDetailsCard}>
+          <Text style={styles.ResultsDetailsTitle} numberOfLines={1}>
+            Aprofundamento:
+          </Text>
+          <View style={styles.ResultsDetailsContent}>
+            <View style={styles.ResultsDetailsItem}>
+              <ImageBackground
+                style={styles.ResultsDetailsIcon}
+                source={require('@/assets/images/icons/rightIcon.png')}
+                resizeMode="cover"
+              />
+              <Text style={styles.ResultsDetailsScore}>2/5</Text>
+              <Text style={styles.ResultsDetailsLabel}>Acertos</Text>
+            </View>
+            
+            <View style={styles.ResultsDetailsItem}>
+              <ImageBackground
+                style={styles.ResultsDetailsIcon}
+                source={require('@/assets/images/icons/skippedIcon.png')}
+                resizeMode="cover"
+              />
+              <Text style={styles.ResultsDetailsScore}>1/5</Text>
+              <Text style={styles.ResultsDetailsLabel}>Pulados</Text>
+            </View>
+            
+            <View style={styles.ResultsDetailsItem}>
+              <ImageBackground
+                style={styles.ResultsDetailsIcon}
+                source={require('@/assets/images/icons/wrongIcon.png')}
+                resizeMode="cover"
+              />
+              <Text style={styles.ResultsDetailsScore}>2/5</Text>
+              <Text style={styles.ResultsDetailsLabel}>Errados</Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </ScrollView>
+  );
+};
+
 const styles = StyleSheet.create({
   imageWrapper: {
     width: '22.86%',
@@ -918,5 +986,126 @@ const styles = StyleSheet.create({
     left: 138,
     zIndex: 10,
     marginLeft: -10
+  },
+
+  ResultsCardContainer: {
+    width: 135.032,
+    height: 154.483,
+    position: 'relative',
+    marginTop: 0,
+    marginRight: 'auto',
+    marginBottom: 0,
+    marginLeft: 'auto',
+  },
+  ResultsCard: {
+    width: 135.032,
+    height: 154.483,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+    borderBottomLeftRadius: 10,
+    borderWidth: 1,
+    borderColor: '#d4d4d4',
+    borderStyle: 'solid',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
+  ResultsImageBackground: {
+    width: 102,
+    height: 101,
+    position: 'relative',
+    zIndex: 1,
+    marginTop: 7,
+    marginLeft: 16.516,
+  },
+  ResultsPercentage: {
+    display: 'flex',
+    height: 28.884,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    fontFamily: 'Inter',
+    fontSize: 24,
+    fontWeight: '700',
+    lineHeight: 28.884,
+    color: '#000000',
+    position: 'absolute',
+    top: 36.058,
+    left: 25.217,
+    textAlign: 'left',
+    zIndex: 2,
+  },
+  ResultsDescription: {
+    height: 14.442,
+    fontFamily: 'Inter',
+    fontSize: 13,
+    fontWeight: '600',
+    lineHeight: 14.442,
+    color: '#000000',
+    position: 'relative',
+    textAlign: 'left',
+    zIndex: 3,
+    marginTop: 12.518,
+    marginLeft: 25.33,
+  },
+
+  ResultsDetailsCardContainer: {
+    width: 332.644,
+    height: 120.261,
+    position: 'relative',
+    marginTop: 0,
+    marginRight: 'auto',
+    marginBottom: 0,
+    marginLeft: 'auto',
+  },
+  ResultsDetailsCard: {
+    width: '100%',
+    height: '100%',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+    borderBottomLeftRadius: 10,
+    borderWidth: 1,
+    borderColor: '#d4d4d4',
+    borderStyle: 'solid',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    padding: 10,
+  },
+  ResultsDetailsTitle: {
+    fontFamily: 'Inter',
+    fontSize: 13,
+    fontWeight: '500',
+    color: '#000000',
+    textAlign: 'left',
+    marginBottom: 10,
+  },
+  ResultsDetailsContent: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  ResultsDetailsItem: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  ResultsDetailsIcon: {
+    width: 24,
+    height: 24,
+  },
+  ResultsDetailsScore: {
+    fontFamily: 'Inter',
+    fontSize: 14,
+    fontWeight: '400',
+    color: '#000000',
+    marginTop: 5,
+  },
+  ResultsDetailsLabel: {
+    fontFamily: 'Inter',
+    fontSize: 12,
+    fontWeight: '400',
+    color: '#727272',
+    marginTop: 5,
   },
 });
