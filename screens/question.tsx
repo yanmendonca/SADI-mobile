@@ -97,8 +97,31 @@ export default function Question({
                 type: 'regular',
                 contentNested: []
             }
-        ) 
+        )
     })
+
+    const getResultsProp = (): {totalQuestions?: number, correctAnswers?: number } => {
+        let totalQuestions: number = 0
+        let correctAnswers: number = 0
+        
+        for (let matter of data1) {
+            let matterCorrectAnswers = matter.questions.map((question) => question.answer)
+            let matterObject = answers.find((item) => item.matter == matter.matter)
+            
+            if (matterObject !== undefined) {
+                let matterAnswers = matterObject.answers.map((answerLetter) => answerTemplate.indexOf(answerLetter))
+                matterAnswers.forEach((answer, index) => {
+                    totalQuestions++
+                    if (answer === matterCorrectAnswers[index]) {
+                        correctAnswers++
+                    }
+                })
+            }
+        
+        }
+
+        return {totalQuestions, correctAnswers}
+    }
 
     
     
@@ -181,7 +204,11 @@ export default function Question({
                 {getMatterIndex(matter) === data.length-1 && question_index === data[getMatterIndex(matter)].content.length-1 
                 ?
                 <TouchableOpacity disabled={!completed} style={[styles.card, {paddingVertical:10, paddingHorizontal: 10}]}
-                onPress={()=> router.push('/learn/')}>
+                onPress={()=> {
+                    router.setParams(getResultsProp())
+                    console.log(getResultsProp())
+                    router.push("/learn")
+                }}>
                     <Ionicons name="send" size={24} color={completed ? '#656B71' : '#BBBBBB'} />
                 </TouchableOpacity>
                 :
