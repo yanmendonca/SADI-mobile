@@ -19,20 +19,50 @@ export default function Index() {
       img: require('@/assets/images/relacionamento.png')
     },
     {
-      key: 0,
+      key: 1,
       name: 'Foco',
       img: require('@/assets/images/focus.jpg')
     },
     {
-      key: 0,
+      key: 2,
       name: 'Autoconfiança',
       img: require('@/assets/images/autoconfiança.jpg')
     },
     {
-      key: 0,
+      key: 3,
       name: 'Adaptabilidade',
       img: require('@/assets/images/adaptabilidade.jpg')
-    }
+    },
+    {
+      key: 4,
+      name: 'Originalidade',
+      img: require('@/assets/images/originalidade.jpg')
+    },
+    {
+      key: 5,
+      name: 'Responsabilidade',
+      img: require('@/assets/images/responsabilidade.png')
+    },
+    {
+      key: 6,
+      name: 'Integridade',
+      img: require('@/assets/images/integridade.jpg')
+    },
+    {
+      key: 7,
+      name: 'Comunicação Eficiente',
+      img: require('@/assets/images/comunicacao.jpg')
+    },
+    {
+      key: 8,
+      name: 'Empatia',
+      img: require('@/assets/images/empatia.webp')
+    },
+    {
+      key: 9,
+      name: 'Amprendizado Contínuo',
+      img: require('@/assets/images/aprendizado.webp')
+    },
   ]
 
   const Simulados = [

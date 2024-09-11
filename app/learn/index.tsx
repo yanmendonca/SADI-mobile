@@ -15,18 +15,18 @@ export default function Index() {
   const softSkills = [
     {
       key: 0,
-      name: 'Relacionamento',
-      img: require('@/assets/images/relacionamento.png')
+      name: 'Controle de ansiedade',
+      img: require('@/assets/images/ansiedade.webp')
     },
     {
       key: 0,
-      name: 'Foco',
+      name: 'Aumento de Foco',
       img: require('@/assets/images/focus.jpg')
     },
     {
       key: 0,
-      name: 'Autoconfiança',
-      img: require('@/assets/images/autoconfiança.jpg')
+      name: 'Controle de tempo',
+      img: require('@/assets/images/tempo.png')
     },
     {
       key: 0,
