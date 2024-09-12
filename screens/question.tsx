@@ -117,12 +117,18 @@ export default function Question({
                     }
                 })
             }
-        
         }
-
         return {totalQuestions, correctAnswers}
     }
 
+    const handleNavigateToResults = () => {
+        const results = getResultsProp();
+        console.log("Navigating to Results with data:", results);
+        router.push({
+          pathname: "/Results",
+          params: results
+        });
+      }
     
     
     const answerTemplate = ['A','B','C','D','E']
@@ -203,13 +209,12 @@ export default function Question({
 
                 {getMatterIndex(matter) === data.length-1 && question_index === data[getMatterIndex(matter)].content.length-1 
                 ?
-                <TouchableOpacity disabled={!completed} style={[styles.card, {paddingVertical:10, paddingHorizontal: 10}]}
-                onPress={()=> {
-                    router.setParams(getResultsProp())
-                    console.log(getResultsProp())
-                    router.push("/learn")
-                }}>
-                    <Ionicons name="send" size={24} color={completed ? '#656B71' : '#BBBBBB'} />
+                <TouchableOpacity 
+                disabled={!completed} 
+                style={[styles.card, {paddingVertical:10, paddingHorizontal: 10}]}
+                onPress={handleNavigateToResults}
+                >
+                <Ionicons name="send" size={24} color={completed ? '#656B71' : '#BBBBBB'} />
                 </TouchableOpacity>
                 :
                 <TouchableOpacity style={[styles.card, {paddingVertical:10, paddingHorizontal: 10}]}

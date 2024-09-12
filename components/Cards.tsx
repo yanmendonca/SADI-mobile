@@ -1,5 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import React, { PropsWithChildren, useState } from 'react';
+import React, { PropsWithChildren, useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity, useColorScheme, View, Text, Image, ImageBackground, ImageSourcePropType, ScrollView, Pressable, ViewStyle, DimensionValue, SafeAreaView } from 'react-native';
 import { Circle, Svg } from "react-native-svg"
 import * as Progress from 'react-native-progress';
@@ -58,6 +58,16 @@ interface CardImageProps {
   height?: DimensionValue;
   width?: DimensionValue;
   img?: NodeRequire;
+}
+
+interface ResultsCardProps {
+  correctPercentage: number;
+}
+
+interface ResultsDetailsCardProps {
+  totalQuestions: number;
+  correctAnswers: number;
+  skippedAnswers: number;
 }
 
 export const CardProgress: React.FC<CardProgressProps> = ({
@@ -505,7 +515,7 @@ const reportData = [
   { subject: 'Inglês', misses: '08', grade: '5,5' },
 ];
 
-export const ResultsCard = (): React.JSX.Element => {
+export const ResultsCard = ({ correctPercentage }: ResultsCardProps): React.JSX.Element => {
   return (
     <ScrollView scrollEnabled={true} contentInsetAdjustmentBehavior="automatic">
       <View style={styles.ResultsCardContainer}>
@@ -516,7 +526,7 @@ export const ResultsCard = (): React.JSX.Element => {
             resizeMode="cover"
           >
             <Text style={styles.ResultsPercentage} numberOfLines={1}>
-              40%
+              {correctPercentage}%
             </Text>
           </ImageBackground>
           <Text style={styles.ResultsDescription} numberOfLines={1}>
@@ -528,7 +538,10 @@ export const ResultsCard = (): React.JSX.Element => {
   );
 };
 
-export const ResultsDetailsCard = (): React.JSX.Element => {
+
+export const ResultsDetailsCard = ({ totalQuestions, correctAnswers, skippedAnswers }: ResultsDetailsCardProps): React.JSX.Element => {
+  const wrongAnswers = totalQuestions - correctAnswers - skippedAnswers;
+
   return (
     <ScrollView scrollEnabled={true} contentInsetAdjustmentBehavior="automatic">
       <View style={styles.ResultsDetailsCardContainer}>
@@ -543,7 +556,7 @@ export const ResultsDetailsCard = (): React.JSX.Element => {
                 source={require('@/assets/images/icons/rightIcon.png')}
                 resizeMode="cover"
               />
-              <Text style={styles.ResultsDetailsScore}>2/5</Text>
+              <Text style={styles.ResultsDetailsScore}>{correctAnswers}/{totalQuestions}</Text>
               <Text style={styles.ResultsDetailsLabel}>Acertos</Text>
             </View>
             
@@ -553,7 +566,7 @@ export const ResultsDetailsCard = (): React.JSX.Element => {
                 source={require('@/assets/images/icons/skippedIcon.png')}
                 resizeMode="cover"
               />
-              <Text style={styles.ResultsDetailsScore}>1/5</Text>
+              <Text style={styles.ResultsDetailsScore}>{skippedAnswers}/{totalQuestions}</Text>
               <Text style={styles.ResultsDetailsLabel}>Pulados</Text>
             </View>
             
@@ -563,7 +576,7 @@ export const ResultsDetailsCard = (): React.JSX.Element => {
                 source={require('@/assets/images/icons/wrongIcon.png')}
                 resizeMode="cover"
               />
-              <Text style={styles.ResultsDetailsScore}>2/5</Text>
+              <Text style={styles.ResultsDetailsScore}>{wrongAnswers}/{totalQuestions}</Text>
               <Text style={styles.ResultsDetailsLabel}>Errados</Text>
             </View>
           </View>
