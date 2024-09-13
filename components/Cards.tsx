@@ -520,15 +520,16 @@ export const ResultsCard = ({ correctPercentage }: ResultsCardProps): React.JSX.
     <ScrollView scrollEnabled={true} contentInsetAdjustmentBehavior="automatic">
       <View style={styles.ResultsCardContainer}>
         <View style={styles.ResultsCard}>
-          <ImageBackground
-            style={styles.ResultsImageBackground}
-            source={require('@/assets/images/Loader.png')}
-            resizeMode="cover"
-          >
-            <Text style={styles.ResultsPercentage} numberOfLines={1}>
-              {correctPercentage}%
-            </Text>
-          </ImageBackground>
+          <Progress.Circle
+            progress={correctPercentage/100}
+            size={100}
+            showsText={true}
+            textStyle={{fontWeight: '600', fontSize: 24}}
+            thickness={4}
+            unfilledColor={'#BBBBBB'}
+            borderWidth={0}
+            animated={false}
+          />
           <Text style={styles.ResultsDescription} numberOfLines={1}>
             % de acertos
           </Text>
@@ -1011,18 +1012,14 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
   },
   ResultsCard: {
-    width: 135.032,
-    height: 154.483,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    borderBottomRightRadius: 10,
-    borderBottomLeftRadius: 10,
+    width: 135,
+    height: 154,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: '#d4d4d4',
-    borderStyle: 'solid',
-    position: 'absolute',
-    top: 0,
-    left: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF'
   },
   ResultsImageBackground: {
     width: 102,
@@ -1037,7 +1034,6 @@ const styles = StyleSheet.create({
     height: 28.884,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    fontFamily: 'Inter',
     fontSize: 24,
     fontWeight: '700',
     lineHeight: 28.884,
@@ -1050,16 +1046,9 @@ const styles = StyleSheet.create({
   },
   ResultsDescription: {
     height: 14.442,
-    fontFamily: 'Inter',
     fontSize: 13,
     fontWeight: '600',
-    lineHeight: 14.442,
-    color: '#000000',
-    position: 'relative',
-    textAlign: 'left',
-    zIndex: 3,
-    marginTop: 12.518,
-    marginLeft: 25.33,
+    marginTop: 12,
   },
 
   ResultsDetailsCardContainer: {
@@ -1070,6 +1059,7 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     marginBottom: 0,
     marginLeft: 'auto',
+    backgroundColor: '#FFFFFF'
   },
   ResultsDetailsCard: {
     width: '100%',
@@ -1087,7 +1077,6 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   ResultsDetailsTitle: {
-    fontFamily: 'Inter',
     fontSize: 13,
     fontWeight: '500',
     color: '#000000',
@@ -1108,14 +1097,12 @@ const styles = StyleSheet.create({
     height: 24,
   },
   ResultsDetailsScore: {
-    fontFamily: 'Inter',
     fontSize: 14,
     fontWeight: '400',
     color: '#000000',
     marginTop: 5,
   },
   ResultsDetailsLabel: {
-    fontFamily: 'Inter',
     fontSize: 12,
     fontWeight: '400',
     color: '#727272',

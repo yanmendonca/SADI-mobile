@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
     },
     ReviewButtonText: {
       height: 23,
-      fontFamily: 'Inter',
       fontSize: 20,
       fontWeight: '700',
       lineHeight: 23,

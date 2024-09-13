@@ -100,10 +100,12 @@ export default function Question({
         )
     })
 
-    const getResultsProp = (): {totalQuestions?: number, correctAnswers?: number } => {
+    const getResultsProp = (): {totalQuestions?: number, correctAnswers?: number, totalAnswers?: number[], matters?: string[]} => {
         let totalQuestions: number = 0
         let correctAnswers: number = 0
-        
+        let totalAnswers:number[] = []
+        let matters: string[] = []
+        let i = 0
         for (let matter of data1) {
             let matterCorrectAnswers = matter.questions.map((question) => question.answer)
             let matterObject = answers.find((item) => item.matter == matter.matter)
@@ -112,13 +114,17 @@ export default function Question({
                 let matterAnswers = matterObject.answers.map((answerLetter) => answerTemplate.indexOf(answerLetter))
                 matterAnswers.forEach((answer, index) => {
                     totalQuestions++
+                    matters.push(matter.matter)
                     if (answer === matterCorrectAnswers[index]) {
+                        totalAnswers.push(1)
                         correctAnswers++
+                    }else{
+                        totalAnswers.push(0)
                     }
                 })
             }
         }
-        return {totalQuestions, correctAnswers}
+        return {totalQuestions, correctAnswers,totalAnswers, matters}
     }
 
     const handleNavigateToResults = () => {
